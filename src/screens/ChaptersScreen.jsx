@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import './ChaptersScreen.css'
-import { figmaAsset } from '../figmaAssets'
+import { figmaThumb } from '../figmaAssets'
 
-const img = figmaAsset
+const img = figmaThumb
 
 const chapters = [
   {
@@ -337,7 +337,7 @@ export default function ChaptersScreen({ onBack, onNext }) {
                           data-photo={j}
                           onPointerDown={(e) => handlePointerDown(i, j, src, e)}
                         >
-                          <img src={src} alt="" draggable={false} />
+                          <img src={src} alt="" draggable={false} loading="lazy" />
                         </div>
                       )
                     })}

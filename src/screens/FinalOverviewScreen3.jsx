@@ -67,7 +67,7 @@ const thumbs = [
   figmaThumb('c22593cc-57ae-4110-8aa0-231ec93be100'),
 ]
 
-export default function FinalOverviewScreen3({ onBack, onNext, onPreview }) {
+export default function FinalOverviewScreen3({ onBack, onNext, excluded, onToggle, onPreview }) {
   return (
     <div className="fo3-screen">
       <div className="fo3-navbar">
@@ -89,16 +89,29 @@ export default function FinalOverviewScreen3({ onBack, onNext, onPreview }) {
         </div>
 
         <div className="fo3-grid">
-          {photos.map((src, i) => (
-            <div key={i} className="fo3-photo">
-              <img src={thumbs[i]} alt="" className="fo3-photo-img" />
-              <div className="fo3-loupe" onClick={() => onPreview(i, photos)}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                  <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="currentColor" />
-                </svg>
-              </div>
-            </div>
-          ))}
+          {photos.map((src, i) => {
+            const isExcluded = excluded.has(i)
+            return (
+              <button key={i} className={`fo3-photo${isExcluded ? ' fo3-photo--excluded' : ''}`} onClick={() => onToggle(i)}>
+                <img src={thumbs[i]} alt="" className="fo3-photo-img" />
+                {isExcluded && <div className="fo3-overlay" />}
+                {isExcluded && (
+                  <div className="fo3-badge">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <circle cx="8" cy="8" r="8" fill="#E53935"/>
+                      <path d="M11.5 5.5L10.5 4.5 8 7 5.5 4.5 4.5 5.5 7 8 4.5 10.5 5.5 11.5 8 9 10.5 11.5 11.5 10.5 9 8z" fill="white"/>
+                    </svg>
+                    <span>ausgeschlossen</span>
+                  </div>
+                )}
+                <div className="fo3-loupe" onClick={(e) => { e.stopPropagation(); onPreview(i, photos) }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="currentColor" />
+                  </svg>
+                </div>
+              </button>
+            )
+          })}
         </div>
       </div>
 

@@ -1,5 +1,6 @@
 import './HomeScreen.css'
 import { figmaAsset } from '../figmaAssets'
+import pixumLogo from '../../rsc/pixum-logo.png'
 
 const TILE1_IMG = figmaAsset('90ef1d40-0cff-489a-a356-16b7c477d709')
 const TILE2_IMG = figmaAsset('c872422d-3efc-4e8d-9b57-cbf6ad0f63bb')
@@ -29,16 +30,6 @@ const tiles = [
   },
 ]
 
-function PixumLogo() {
-  return (
-    <div className="hs-logo">
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M11 1v4M11 17v4M1 11h4M17 11h4M3.93 3.93l2.83 2.83M15.24 15.24l2.83 2.83M18.07 3.93l-2.83 2.83M6.76 15.24l-2.83 2.83" stroke="#0076c8" strokeWidth="2.2" strokeLinecap="round"/>
-      </svg>
-      <span className="hs-logo-text">pixum</span>
-    </div>
-  )
-}
 
 function EmailIcon() {
   return (
@@ -61,7 +52,7 @@ export default function HomeScreen({ onStartPrototype }) {
     <div className="hs-shell">
       <div className="hs-topbar">
         <div className="hs-navbar">
-          <PixumLogo />
+          <img src={pixumLogo} alt="Pixum" className="hs-logo" />
           <div className="hs-nav-actions">
             <button className="hs-nav-btn" aria-label="E-Mail">
               <EmailIcon />

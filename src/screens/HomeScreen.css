@@ -25,16 +25,8 @@
 }
 
 .hs-logo {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.hs-logo-text {
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--primary);
-  letter-spacing: -0.3px;
+  height: 36px;
+  width: auto;
 }
 
 .hs-nav-actions {

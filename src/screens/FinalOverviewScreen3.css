@@ -99,6 +99,37 @@
   background: #c9e4f2;
   overflow: hidden;
   flex-shrink: 0;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.fo3-overlay {
+  position: absolute;
+  inset: 0;
+  background: white;
+  opacity: 0.5;
+}
+
+.fo3-badge {
+  position: absolute;
+  top: 8px;
+  right: 4px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 22px;
+  padding: 4px 4px 4px 2px;
+  background: #ffcbc9;
+  border: 0.5px solid var(--outline-variant);
+  border-radius: 999px;
+  color: #74100a;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.48px;
+  white-space: nowrap;
+  z-index: 2;
+  pointer-events: none;
 }
 
 .fo3-photo-img {
@@ -119,6 +150,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  z-index: 3;
 }
 
 .fo3-loupe > svg {

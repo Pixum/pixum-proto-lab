@@ -1,19 +1,21 @@
 import './PhotoPickerScreen.css'
-import { fotosetImages } from '../images'
+import { fotosetImages, fotosetThumbs } from '../images'
+
+const thumb = (i) => fotosetThumbs[i] ?? fotosetImages[i]
 
 const topEvents = [
-  { name: 'Italien', date: 'März 2026', cover: fotosetImages[0] },
-  { name: 'Bali', date: 'Sommer 2024', cover: fotosetImages[5] },
-  { name: 'Weihnachten', date: 'Dez. 2023', cover: fotosetImages[10] },
-  { name: 'Düsseldorf', date: 'Juni 2023', cover: fotosetImages[15] },
-  { name: 'New York', date: 'Frühjahr 2023', cover: fotosetImages[20] },
-  { name: '+21', date: '', cover: fotosetImages[25] },
+  { name: 'Italien', date: 'März 2026', cover: thumb(0) },
+  { name: 'Bali', date: 'Sommer 2024', cover: thumb(5) },
+  { name: 'Weihnachten', date: 'Dez. 2023', cover: thumb(10) },
+  { name: 'Düsseldorf', date: 'Juni 2023', cover: thumb(15) },
+  { name: 'New York', date: 'Frühjahr 2023', cover: thumb(20) },
+  { name: '+21', date: '', cover: thumb(25) },
 ]
 
 const placeholderFolders = [
-  { name: 'Favoriten', count: 123, cover: fotosetImages[30] },
-  { name: 'Albumname', count: 200, cover: fotosetImages[28]  },
-  { name: 'Albumname', count: 200, cover: fotosetImages[17]  },
+  { name: 'Favoriten', count: 123, cover: thumb(30) },
+  { name: 'Albumname', count: 200, cover: thumb(28)  },
+  { name: 'Albumname', count: 200, cover: thumb(17)  },
 ]
 
 export default function PhotoPickerScreen({ onBack, onOpenAlbum }) {
@@ -56,7 +58,7 @@ export default function PhotoPickerScreen({ onBack, onOpenAlbum }) {
               >
                 <div className="pp-event-thumb">
                   {event.cover
-                    ? <img src={event.cover} alt={event.name} />
+                    ? <img src={event.cover} alt={event.name} loading="lazy" />
                     : <div className="pp-event-placeholder" />}
                 </div>
                 <span className="pp-event-name">{event.name}</span>
@@ -74,7 +76,7 @@ export default function PhotoPickerScreen({ onBack, onOpenAlbum }) {
               onClick={() => onOpenAlbum({ name: 'Kamerarolle', images: fotosetImages })}
             >
               <div className="pp-folder-thumb">
-                <img src={fotosetImages[0]} alt="Kamerarolle" />
+                <img src={thumb(0)} alt="Kamerarolle" loading="lazy" />
               </div>
               <span className="pp-folder-name">Kamerarolle</span>
               <span className="pp-folder-count">{fotosetImages.length} Fotos</span>
@@ -83,7 +85,7 @@ export default function PhotoPickerScreen({ onBack, onOpenAlbum }) {
             {placeholderFolders.map((folder, i) => (
               <button key={i} className="pp-folder-card">
                 <div className="pp-folder-thumb pp-folder-thumb--placeholder">
-                  {folder.cover && <img src={folder.cover} alt={folder.name} />}
+                  {folder.cover && <img src={folder.cover} alt={folder.name} loading="lazy" />}
                 </div>
                 <span className="pp-folder-name">{folder.name}</span>
                 <span className="pp-folder-count">{folder.count} Fotos</span>

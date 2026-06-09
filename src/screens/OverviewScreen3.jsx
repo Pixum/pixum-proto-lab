@@ -23,6 +23,7 @@ export default function OverviewScreen3({ onBack, onNext, onPreview }) {
   const [dupExcluded, setDupExcluded] = useState(initDupExcluded)
   const [lqExcluded, setLqExcluded] = useState(() => new Set(lqPhotos.map((_, i) => i)))
   const [filtExcluded, setFiltExcluded] = useState(() => new Set(filtPhotos.map((_, i) => i)))
+  const [finalExcluded, setFinalExcluded] = useState(() => new Set())
 
   if (step === 1) {
     return (
@@ -64,6 +65,8 @@ export default function OverviewScreen3({ onBack, onNext, onPreview }) {
     <FinalOverviewScreen3
       onBack={() => setStep(3)}
       onNext={onNext}
+      excluded={finalExcluded}
+      onToggle={(i) => setFinalExcluded(prev => toggleSet(prev, i))}
       onPreview={onPreview}
     />
   )
