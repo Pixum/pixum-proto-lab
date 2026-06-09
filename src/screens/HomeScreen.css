@@ -1,7 +1,8 @@
 .hs-shell {
   display: flex;
   flex-direction: column;
-  min-height: 100dvh;
+  height: 100dvh;
+  overflow: hidden;
   background: var(--surface);
 }
 
@@ -66,6 +67,9 @@
 
 .hs-scroll {
   flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .hs-tiles {

@@ -2,7 +2,8 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 100dvh;
+  height: 100dvh;
+  overflow: hidden;
   background: var(--surface);
 }
 
@@ -72,6 +73,9 @@
 /* ── Photo Grid ──────────────────────────────────────── */
 .al-grid-wrap {
   flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .al-grid {

@@ -2,7 +2,8 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 100dvh;
+  height: 100dvh;
+  overflow: hidden;
   background: var(--surface);
 }
 
@@ -45,6 +46,9 @@
 
 .du-scroll {
   flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 24px 16px 32px;
   display: flex;
   flex-direction: column;
