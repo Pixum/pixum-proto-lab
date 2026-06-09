@@ -5,17 +5,17 @@ import { figmaAsset } from '../figmaAssets'
 const options = [
   {
     title: 'Weniger Bilder',
-    desc: 'Fotos werden größer Dargestellt, in der Regel 1-4 Bilder pro Seite.',
+    desc: 'Fotos werden größer Dargestellt, in der Regel 1-4 Bilder pro Seite. Geschätzte 52 Seiten. ',
     preview: figmaAsset('c6e3d01a-6ffc-45b2-8df4-b077f095177d'),
   },
   {
     title: 'Mehr Bilder',
-    desc: 'Wenn du viele Fotos hast, macht es Sinn 4-9 Bilder pro Seite zu platzieren.',
+    desc: 'Wenn du viele Fotos hast, macht es Sinn 4-9 Bilder pro Seite zu platzieren. Geschätzte 34 Seiten.',
     preview: figmaAsset('82302c13-e928-404d-ab65-0cef4009f45d'),
   },
   {
     title: 'Ein Foto pro Seite',
-    desc: 'Wenn die Fotos scheinen sollen und jeder Moment eine Bühne bekommen soll.',
+    desc: 'Wenn die Fotos scheinen sollen und jeder Moment eine Bühne bekommen soll. Geschätzte 116 Seiten.',
     preview: figmaAsset('047bf385-2224-4c38-a545-58a4d1a92833'),
   },
 ]

@@ -89,7 +89,7 @@ export default function FilteredScreen({ onBack, excluded, onToggle, onPreview }
                       <circle cx="8" cy="8" r="8" fill="#E53935"/>
                       <path d="M11.5 5.5L10.5 4.5 8 7 5.5 4.5 4.5 5.5 7 8 4.5 10.5 5.5 11.5 8 9 10.5 11.5 11.5 10.5 9 8z" fill="white"/>
                     </svg>
-                    <span>is exluded</span>
+                    <span>ausgeschlossen</span>
                   </div>
                 )}
                 <div className="fi-loupe" onClick={(e) => { e.stopPropagation(); onPreview(i, photos) }}>

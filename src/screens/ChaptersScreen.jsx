@@ -196,6 +196,7 @@ export default function ChaptersScreen({ onBack, onNext }) {
       if (Math.hypot(dx, dy) < 4) return
       dragRef.current.active = true
       e.preventDefault()
+      document.body.style.userSelect = 'none'
       if (ghostRef.current) ghostRef.current.style.display = 'block'
       const { chapterIdx, photoIdx, src } = dragRef.current
       setDragging({ chapterIdx, photoIdx, src })
@@ -240,6 +241,7 @@ export default function ChaptersScreen({ onBack, onNext }) {
     dragRef.current = null
     dragOverRef.current = null
 
+    document.body.style.userSelect = ''
     if (ghostRef.current) ghostRef.current.style.display = 'none'
 
     setDragging(null)

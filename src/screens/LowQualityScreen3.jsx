@@ -1,5 +1,5 @@
 import './LowQualityScreen3.css'
-import { figmaAsset } from '../figmaAssets'
+import { figmaAsset, figmaThumb } from '../figmaAssets'
 
 const img0 = figmaAsset('6bfa169c-4eab-47e3-a943-e393f32740eb')
 const img1 = figmaAsset('55779aed-d239-4d81-9911-90f57640968f')
@@ -17,6 +17,22 @@ const img12 = figmaAsset('ae2f183f-b524-4038-b21c-a04dddaa4a7b')
 
 export const photos = [img0, img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11, img12]
 
+const thumbs = [
+  figmaThumb('6bfa169c-4eab-47e3-a943-e393f32740eb'),
+  figmaThumb('55779aed-d239-4d81-9911-90f57640968f'),
+  figmaThumb('166c5131-7d35-41b5-92d1-be358deac518'),
+  figmaThumb('3ba8619e-abf9-4c5b-9f46-14c82d2eb43f'),
+  figmaThumb('65ffd0fc-f22b-4c6d-8731-3dd5ce5759c9'),
+  figmaThumb('0a4f6e39-effb-4692-9d82-69af84e2ab7f'),
+  figmaThumb('c6aaffbc-1017-4070-8d6b-698c9e6cc9a6'),
+  figmaThumb('e51eb82a-c847-492a-8845-ede55dcd947f'),
+  figmaThumb('668f0866-0190-4744-a0fe-bdcfc86d0b0a'),
+  figmaThumb('c0589298-df53-4b0e-b145-06b51f78a076'),
+  figmaThumb('a93dd589-144a-4c6c-8b6a-c3bcaa08393b'),
+  figmaThumb('dfca99aa-b901-47d5-b851-5753faed7f59'),
+  figmaThumb('ae2f183f-b524-4038-b21c-a04dddaa4a7b'),
+]
+
 export default function LowQualityScreen3({ onBack, onNext, excluded, onToggle, onPreview }) {
   return (
     <div className="lq3-screen">
@@ -32,10 +48,10 @@ export default function LowQualityScreen3({ onBack, onNext, excluded, onToggle, 
 
       <div className="lq3-scroll">
         <div className="lq3-header">
-          <div className="lq3-step-badge">Step 2 out of 3</div>
-          <h1 className="lq3-heading">Low Quality</h1>
+          <div className="lq3-step-badge">Schritt 2 von 3</div>
+          <h1 className="lq3-heading">Niedrige Qualität</h1>
           <p className="lq3-desc">
-            Review low-quality images and select which ones to exclude from your photobook.
+           Prüfe Fotos mit niedriger Qualität und entferne unerwünschte aus deinem Fotobuch.
           </p>
         </div>
 
@@ -44,7 +60,7 @@ export default function LowQualityScreen3({ onBack, onNext, excluded, onToggle, 
             const isExcluded = excluded.has(i)
             return (
               <button key={i} className={`lq3-photo${isExcluded ? ' lq3-photo--excluded' : ''}`} onClick={() => onToggle(i)}>
-                <img src={src} alt="" className="lq3-photo-img" />
+                <img src={thumbs[i]} alt="" className="lq3-photo-img" />
                 {isExcluded && <div className="lq3-overlay" />}
                 {isExcluded && (
                   <div className="lq3-badge">
@@ -52,7 +68,7 @@ export default function LowQualityScreen3({ onBack, onNext, excluded, onToggle, 
                       <circle cx="8" cy="8" r="8" fill="#E53935"/>
                       <path d="M11.5 5.5L10.5 4.5 8 7 5.5 4.5 4.5 5.5 7 8 4.5 10.5 5.5 11.5 8 9 10.5 11.5 11.5 10.5 9 8z" fill="white"/>
                     </svg>
-                    <span>is exluded</span>
+                    <span>ausgeschlossen</span>
                   </div>
                 )}
                 <div className="lq3-loupe" onClick={(e) => { e.stopPropagation(); onPreview(i, photos) }}>
@@ -68,7 +84,7 @@ export default function LowQualityScreen3({ onBack, onNext, excluded, onToggle, 
 
       <div className="lq3-bottombar">
         <div className="lq3-bottombar-inner">
-          <button className="lq3-cta" onClick={onNext}>Next step</button>
+          <button className="lq3-cta" onClick={onNext}>Nächster Schritt</button>
         </div>
         <div className="lq3-home-indicator" />
       </div>

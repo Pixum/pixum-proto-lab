@@ -81,12 +81,14 @@ export default function App() {
           onPreview={(idx, images) => { setPreviewState({ images, index: idx, origin: 'overview' }); setScreen('fullscreen') }}
         />
       )}
-      {screen === 'overview' && prototypeId === 3 && (
-        <OverviewScreen3
-          onBack={() => setScreen('album')}
-          onNext={() => { setLoadingTarget('chapters'); setScreen('loading'); }}
-          onPreview={(idx, images) => { setPreviewState({ images, index: idx, origin: 'overview' }); setScreen('fullscreen') }}
-        />
+      {(screen === 'overview' || screen === 'fullscreen') && prototypeId === 3 && (
+        <div style={{ display: screen === 'overview' ? '' : 'none' }}>
+          <OverviewScreen3
+            onBack={() => setScreen('album')}
+            onNext={() => { setLoadingTarget('chapters'); setScreen('loading'); }}
+            onPreview={(idx, images) => { setPreviewState({ images, index: idx, origin: 'overview' }); setScreen('fullscreen') }}
+          />
+        </div>
       )}
       {screen === 'chapters' && (
         <ChaptersScreen

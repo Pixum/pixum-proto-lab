@@ -12,8 +12,8 @@ const topEvents = [
 
 const placeholderFolders = [
   { name: 'Favoriten', count: 123, cover: fotosetImages[30] },
-  { name: 'Albumname', count: 200, cover: null },
-  { name: 'Albumname', count: 200, cover: null },
+  { name: 'Albumname', count: 200, cover: fotosetImages[28]  },
+  { name: 'Albumname', count: 200, cover: fotosetImages[17]  },
 ]
 
 export default function PhotoPickerScreen({ onBack, onOpenAlbum }) {

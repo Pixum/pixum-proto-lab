@@ -38,7 +38,7 @@ body {
 .app-shell {
   position: relative;
   width: 100%;
-  max-width: 480px;
+  max-width: 520px;
   min-height: 100dvh;
   background: var(--surface);
 }

@@ -2,8 +2,9 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 100dvh;
+  height: 100dvh;
   background: var(--surface);
+  overflow: hidden;
 }
 
 /* ── Navbar ─────────────────────────────────────────── */
@@ -13,9 +14,6 @@
   height: 56px;
   padding: 0 4px;
   flex-shrink: 0;
-  position: sticky;
-  top: 0;
-  z-index: 10;
   background: var(--nav-bg);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -47,13 +45,16 @@
 /* ── Scrollable content ──────────────────────────────── */
 .lp-scroll {
   flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   padding-bottom: 20px;
 }
 
 /* ── Sticky placeholder ──────────────────────────────── */
 .lp-placeholder {
   position: sticky;
-  top: 56px;
+  top: 0;
   z-index: 2;
   height: 260px;
   background: var(--surface-container);
@@ -67,8 +68,8 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  width: calc(100% - 28px);
-  height: 142px;
+  width: calc(100% - 40px);
+  height: auto;
   object-fit: cover;
   pointer-events: none;
   user-select: none;
@@ -138,9 +139,6 @@
 /* ── Bottom bar ──────────────────────────────────────── */
 .lp-bottombar {
   flex-shrink: 0;
-  position: sticky;
-  bottom: 0;
-  z-index: 2;
   background: var(--nav-bg);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -187,7 +185,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: 76px 16px 108px;
+  padding: 24px 16px 108px;
 }
 
 .lp3-header {
