@@ -147,14 +147,17 @@ export default function ChaptersScreen({ onBack, onNext }) {
   )
 
   // Drag refs — updated synchronously, never cause re-renders
-  const dragRef = useRef(null)    // { chapterIdx, photoIdx, offsetX, offsetY }
+  const dragRef = useRef(null)    // { chapterIdx, photoIdx, offsetX, offsetY, longPressReady }
   const dragOverRef = useRef(null) // { chapterIdx, photoIdx } — mirrors dragOver state
   const ghostRef = useRef(null)
   const ghostImgRef = useRef(null)
+  const longPressTimerRef = useRef(null)
+  const LONG_PRESS_MS = 500
 
-  // Only these two drive visual updates
-  const [dragging, setDragging] = useState(null)   // { chapterIdx, photoIdx, src }
-  const [dragOver, setDragOver] = useState(null)    // { chapterIdx, photoIdx }
+  // Only these drive visual updates
+  const [dragging, setDragging] = useState(null)         // { chapterIdx, photoIdx, src }
+  const [dragOver, setDragOver] = useState(null)          // { chapterIdx, photoIdx }
+  const [longPressActive, setLongPressActive] = useState(null) // { chapterIdx, photoIdx }
 
   const displayImages = useMemo(() => {
     if (!dragging || !dragOver) return chapterImages
@@ -190,6 +193,19 @@ export default function ChaptersScreen({ onBack, onNext }) {
     if (!dragRef.current) return
     const { offsetX, offsetY } = dragRef.current
 
+    if (!dragRef.current.longPressReady) {
+      const dx = e.clientX - dragRef.current.startX
+      const dy = e.clientY - dragRef.current.startY
+      if (Math.hypot(dx, dy) > 8) {
+        // Moved too far before long-press — treat as scroll, cancel
+        clearTimeout(longPressTimerRef.current)
+        dragRef.current = null
+        window.removeEventListener('pointermove', handlePointerMove)
+        // pointerup listener stays so it can clean itself up when finger lifts
+      }
+      return
+    }
+
     if (!dragRef.current.active) {
       const dx = e.clientX - dragRef.current.startX
       const dy = e.clientY - dragRef.current.startY
@@ -200,6 +216,7 @@ export default function ChaptersScreen({ onBack, onNext }) {
       if (ghostRef.current) ghostRef.current.style.display = 'block'
       const { chapterIdx, photoIdx, src } = dragRef.current
       setDragging({ chapterIdx, photoIdx, src })
+      setLongPressActive(null)
       return
     }
 
@@ -223,9 +240,11 @@ export default function ChaptersScreen({ onBack, onNext }) {
       dragOverRef.current = null
       setDragOver(null)
     }
-  }, [setDragging, setDragOver])
+  }, [setDragging, setDragOver, setLongPressActive])
 
   const handlePointerUp = useCallback(() => {
+    clearTimeout(longPressTimerRef.current)
+    setLongPressActive(null)
     // Always remove listeners synchronously — no React timing dependency
     window.removeEventListener('pointermove', handlePointerMove)
     window.removeEventListener('pointerup', handlePointerUp)
@@ -246,14 +265,14 @@ export default function ChaptersScreen({ onBack, onNext }) {
 
     setDragging(null)
     setDragOver(null)
-  }, [handlePointerMove, reorder, setDragging, setDragOver])
+  }, [handlePointerMove, reorder, setDragging, setDragOver, setLongPressActive])
 
   const handlePointerDown = useCallback((chapterIdx, photoIdx, src, e) => {
     const rect = e.currentTarget.getBoundingClientRect()
     const offsetX = e.clientX - rect.left
     const offsetY = e.clientY - rect.top
 
-    dragRef.current = { chapterIdx, photoIdx, offsetX, offsetY, src, startX: e.clientX, startY: e.clientY, active: false }
+    dragRef.current = { chapterIdx, photoIdx, offsetX, offsetY, src, startX: e.clientX, startY: e.clientY, active: false, longPressReady: false }
     dragOverRef.current = null
 
     if (ghostImgRef.current) ghostImgRef.current.src = src
@@ -264,6 +283,14 @@ export default function ChaptersScreen({ onBack, onNext }) {
       ghost.style.transform = `translate(${rect.left}px, ${rect.top}px)`
     }
 
+    longPressTimerRef.current = setTimeout(() => {
+      if (dragRef.current) {
+        dragRef.current.longPressReady = true
+        setLongPressActive({ chapterIdx, photoIdx })
+        navigator.vibrate?.(50)
+      }
+    }, LONG_PRESS_MS)
+
     // Add listeners synchronously so pointerup is always caught, even on fast taps
     window.removeEventListener('pointermove', handlePointerMove)
     window.removeEventListener('pointerup', handlePointerUp)
@@ -271,9 +298,10 @@ export default function ChaptersScreen({ onBack, onNext }) {
     window.addEventListener('pointerup', handlePointerUp)
   }, [handlePointerMove, handlePointerUp])
 
-  // Safety net: remove listeners if component unmounts mid-drag
+  // Safety net: remove listeners and timer if component unmounts mid-drag
   useEffect(() => {
     return () => {
+      clearTimeout(longPressTimerRef.current)
       window.removeEventListener('pointermove', handlePointerMove)
       window.removeEventListener('pointerup', handlePointerUp)
     }
@@ -332,7 +360,7 @@ export default function ChaptersScreen({ onBack, onNext }) {
                       return (
                         <div
                           key={src}
-                          className={`ch-photo-tile${isDragging ? ' ch-photo-tile--dragging' : ''}`}
+                          className={`ch-photo-tile${isDragging ? ' ch-photo-tile--dragging' : ''}${longPressActive?.chapterIdx === i && longPressActive?.photoIdx === j ? ' ch-photo-tile--long-pressed' : ''}`}
                           data-chapter={i}
                           data-photo={j}
                           onPointerDown={(e) => handlePointerDown(i, j, src, e)}

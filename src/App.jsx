@@ -56,13 +56,15 @@ export default function App() {
           onOpenAlbum={(album) => { setActiveAlbum(album); setScreen('album') }}
         />
       )}
-      {screen === 'album' && activeAlbum && (
-        <AlbumScreen
-          album={activeAlbum}
-          onBack={() => setScreen('photopicker')}
-          onPreview={(idx, images) => { setPreviewState({ images, index: idx, origin: 'album' }); setScreen('fullscreen') }}
-          onNext={() => { setLoadingTarget('overview'); setScreen('loading'); }}
-        />
+      {(screen === 'album' || (screen === 'fullscreen' && previewState?.origin === 'album')) && activeAlbum && (
+        <div style={{ display: screen === 'album' ? '' : 'none' }}>
+          <AlbumScreen
+            album={activeAlbum}
+            onBack={() => setScreen('photopicker')}
+            onPreview={(idx, images) => { setPreviewState({ images, index: idx, origin: 'album' }); setScreen('fullscreen') }}
+            onNext={() => { setLoadingTarget('overview'); setScreen('loading'); }}
+          />
+        </div>
       )}
       {screen === 'loading' && <LoadingScreen onComplete={() => setScreen(loadingTarget)} duration={loadingDuration} />}
       {screen === 'overview' && prototypeId === 1 && (
@@ -74,12 +76,14 @@ export default function App() {
           onNext={() => { setLoadingTarget('chapters'); setScreen('loading'); }}
         />
       )}
-      {screen === 'overview' && prototypeId === 2 && (
-        <OverviewScreen2
-          onBack={() => setScreen('album')}
-          onNext={() => { setLoadingTarget('chapters'); setScreen('loading'); }}
-          onPreview={(idx, images) => { setPreviewState({ images, index: idx, origin: 'overview' }); setScreen('fullscreen') }}
-        />
+      {(screen === 'overview' || (screen === 'fullscreen' && previewState?.origin === 'overview')) && prototypeId === 2 && (
+        <div style={{ display: screen === 'overview' ? '' : 'none' }}>
+          <OverviewScreen2
+            onBack={() => setScreen('album')}
+            onNext={() => { setLoadingTarget('chapters'); setScreen('loading'); }}
+            onPreview={(idx, images) => { setPreviewState({ images, index: idx, origin: 'overview' }); setScreen('fullscreen') }}
+          />
+        </div>
       )}
       {(screen === 'overview' || screen === 'fullscreen') && prototypeId === 3 && (
         <div style={{ display: screen === 'overview' ? '' : 'none' }}>
@@ -121,29 +125,35 @@ export default function App() {
           photos={activeAlbum?.images ?? fotosetImages}
         />
       )}
-      {screen === 'duplicates' && (
-        <DuplicatesScreen
-          onBack={() => setScreen('overview')}
-          excluded={duplicatesExcluded}
-          onToggle={(gi, pi) => setDuplicatesExcluded(prev => toggleSet(prev, `${gi}-${pi}`))}
-          onPreview={(idx, images) => { setPreviewState({ images, index: idx, origin: 'duplicates' }); setScreen('fullscreen') }}
-        />
+      {(screen === 'duplicates' || (screen === 'fullscreen' && previewState?.origin === 'duplicates')) && (
+        <div style={{ display: screen === 'duplicates' ? '' : 'none' }}>
+          <DuplicatesScreen
+            onBack={() => setScreen('overview')}
+            excluded={duplicatesExcluded}
+            onToggle={(gi, pi) => setDuplicatesExcluded(prev => toggleSet(prev, `${gi}-${pi}`))}
+            onPreview={(idx, images) => { setPreviewState({ images, index: idx, origin: 'duplicates' }); setScreen('fullscreen') }}
+          />
+        </div>
       )}
-      {screen === 'lowquality' && (
-        <LowQualityScreen
-          onBack={() => setScreen('overview')}
-          excluded={lowQualityExcluded}
-          onToggle={(i) => setLowQualityExcluded(prev => toggleSet(prev, i))}
-          onPreview={(idx, images) => { setPreviewState({ images, index: idx, origin: 'lowquality' }); setScreen('fullscreen') }}
-        />
+      {(screen === 'lowquality' || (screen === 'fullscreen' && previewState?.origin === 'lowquality')) && (
+        <div style={{ display: screen === 'lowquality' ? '' : 'none' }}>
+          <LowQualityScreen
+            onBack={() => setScreen('overview')}
+            excluded={lowQualityExcluded}
+            onToggle={(i) => setLowQualityExcluded(prev => toggleSet(prev, i))}
+            onPreview={(idx, images) => { setPreviewState({ images, index: idx, origin: 'lowquality' }); setScreen('fullscreen') }}
+          />
+        </div>
       )}
-      {screen === 'filtered' && (
-        <FilteredScreen
-          onBack={() => setScreen('overview')}
-          excluded={filteredExcluded}
-          onToggle={(i) => setFilteredExcluded(prev => toggleSet(prev, i))}
-          onPreview={(idx, images) => { setPreviewState({ images, index: idx, origin: 'filtered' }); setScreen('fullscreen') }}
-        />
+      {(screen === 'filtered' || (screen === 'fullscreen' && previewState?.origin === 'filtered')) && (
+        <div style={{ display: screen === 'filtered' ? '' : 'none' }}>
+          <FilteredScreen
+            onBack={() => setScreen('overview')}
+            excluded={filteredExcluded}
+            onToggle={(i) => setFilteredExcluded(prev => toggleSet(prev, i))}
+            onPreview={(idx, images) => { setPreviewState({ images, index: idx, origin: 'filtered' }); setScreen('fullscreen') }}
+          />
+        </div>
       )}
       {screen === 'fullscreen' && previewState && (
         <FullscreenPreview
