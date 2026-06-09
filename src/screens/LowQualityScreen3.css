@@ -166,8 +166,6 @@
 
 .lq3-bottombar {
   flex-shrink: 0;
-  position: sticky;
-  bottom: 0;
   z-index: 2;
   background: var(--nav-bg);
   backdrop-filter: blur(10px);
