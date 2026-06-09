@@ -1,0 +1,342 @@
+.fi3-screen {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100dvh;
+  background: var(--surface);
+}
+
+.fi3-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 4px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--nav-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 0.5px solid var(--outline-variant);
+}
+
+.fi3-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--on-surface);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.fi3-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--on-surface);
+  letter-spacing: -0.2px;
+}
+
+.fi3-scroll {
+  flex: 1;
+  padding: 24px 16px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.fi3-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fi3-step-badge {
+  background: var(--surface-container);
+  color: var(--on-surface);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.26px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+  align-self: flex-start;
+}
+
+.fi3-heading {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--on-surface);
+  letter-spacing: -0.12px;
+  line-height: 1.33;
+  margin: 0;
+}
+
+.fi3-desc {
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--on-surface-variant);
+  letter-spacing: 0.17px;
+  line-height: 1.47;
+}
+
+.fi3-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+}
+
+.fi3-chip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 42px;
+  padding: 8px 6px 8px 12px;
+  border: 0.5px solid #99b6ce;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--on-surface);
+  letter-spacing: 0.18px;
+  white-space: nowrap;
+}
+
+.fi3-chip svg {
+  color: var(--on-surface-variant);
+  flex-shrink: 0;
+}
+
+.fi3-chip-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: var(--on-surface-variant);
+  flex-shrink: 0;
+}
+
+.fi3-add-filter {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 20px 10px 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: 0.25px;
+  white-space: nowrap;
+}
+
+.fi3-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.fi3-photo {
+  position: relative;
+  width: calc((100% - 4px) / 3);
+  aspect-ratio: 1;
+  background: #c9e4f2;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.fi3-photo-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.fi3-overlay {
+  position: absolute;
+  inset: 0;
+  background: white;
+  opacity: 0.5;
+}
+
+.fi3-badge {
+  position: absolute;
+  top: 8px;
+  right: 4px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 22px;
+  padding: 4px 4px 4px 2px;
+  background: #ffcbc9;
+  border: 0.5px solid var(--outline-variant);
+  border-radius: 999px;
+  color: #74100a;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.48px;
+  white-space: nowrap;
+}
+
+.fi3-loupe {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fi3-loupe > svg {
+  background: rgba(247, 251, 255, 0.86);
+  border: 0.5px solid var(--outline-variant);
+  border-radius: 999px;
+  padding: 4px;
+  width: 24px;
+  height: 24px;
+  color: var(--on-surface);
+}
+
+.fi3-bottombar {
+  flex-shrink: 0;
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  background: var(--nav-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 0.5px solid var(--outline-variant);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fi3-bottombar-inner {
+  width: 100%;
+  padding: 8px 16px 4px;
+}
+
+.fi3-cta {
+  display: block;
+  width: 100%;
+  height: 48px;
+  border-radius: 999px;
+  background: var(--primary);
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.25px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.fi3-cta:active {
+  opacity: 0.85;
+}
+
+.fi3-home-indicator {
+  width: 134px;
+  height: 5px;
+  border-radius: 100px;
+  background: var(--on-surface);
+  margin: 8px auto;
+}
+
+.fi3-sheet-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+}
+
+.fi3-sheet {
+  width: 100%;
+  background: var(--surface);
+  border-radius: 20px 20px 0 0;
+  box-shadow: 4px -8px 10px rgba(0, 0, 0, 0.05), 10px -12px 30px rgba(0, 0, 0, 0.12);
+  animation: fi3-slide-up 0.25s ease;
+}
+
+@keyframes fi3-slide-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.fi3-sheet-handle {
+  width: 40px;
+  height: 6px;
+  background: var(--outline-variant);
+  border-radius: 10px;
+  margin: 12px auto;
+}
+
+.fi3-sheet-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 8px 16px 24px;
+}
+
+.fi3-sheet-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--on-surface);
+  padding: 0 8px;
+}
+
+.fi3-sheet-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface-container);
+  border: 0.5px solid #99b6ce;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.fi3-sheet-input {
+  flex: 1;
+  border: none;
+  background: none;
+  outline: none;
+  font-size: 17px;
+  color: var(--on-surface);
+  letter-spacing: 0.17px;
+  font-family: inherit;
+}
+
+.fi3-sheet-input::placeholder {
+  color: var(--on-surface-variant);
+}
+
+.fi3-sheet-add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--on-surface);
+  flex-shrink: 0;
+  padding: 0;
+}

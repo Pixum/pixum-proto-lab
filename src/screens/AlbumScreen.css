@@ -1,0 +1,217 @@
+.al-screen {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100dvh;
+  background: var(--surface);
+}
+
+/* ── Navbar ─────────────────────────────────────────── */
+.al-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 4px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--nav-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 0.5px solid var(--outline-variant);
+}
+
+.al-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--on-surface);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.al-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--on-surface);
+  letter-spacing: -0.2px;
+}
+
+/* ── Section header ──────────────────────────────────── */
+.al-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px 8px;
+  flex-shrink: 0;
+}
+
+.al-count {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--on-surface);
+}
+
+.al-select-all {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+/* ── Photo Grid ──────────────────────────────────────── */
+.al-grid-wrap {
+  flex: 1;
+}
+
+.al-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.al-cell {
+  position: relative;
+  aspect-ratio: 1;
+}
+
+.al-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.al-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.al-selected-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 118, 200, 0.2);
+  pointer-events: none;
+}
+
+/* ── Selection circle ────────────────────────────────── */
+.al-check {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(2px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, border-color 0.15s;
+  padding: 0;
+}
+
+.al-check--on {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+/* ── Bottom bar ──────────────────────────────────────── */
+.al-bottombar {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  background: var(--nav-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 0.5px solid var(--outline-variant);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.al-bottombar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 16px 6px;
+  gap: 12px;
+}
+
+.al-selection-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.al-thumbs {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.al-thumb {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  object-fit: cover;
+  display: block;
+}
+
+.al-sel-count {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--on-surface);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.al-next-btn {
+  flex-shrink: 0;
+  height: 44px;
+  padding: 0 20px;
+  border-radius: 999px;
+  background: var(--primary);
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+}
+
+.al-next-btn:active {
+  opacity: 0.85;
+}
+
+.al-home-indicator {
+  width: 134px;
+  height: 5px;
+  border-radius: 100px;
+  background: var(--on-surface);
+  margin: 8px auto;
+}

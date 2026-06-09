@@ -1,0 +1,44 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+  overflow-y: auto;
+}
+
+body {
+  min-height: 100%;
+}
+
+:root {
+  --surface: #f7fbff;
+  --on-surface: #1e2024;
+  --on-surface-variant: #404954;
+  --primary: #0076c8;
+  --outline: #99b6ce;
+  --outline-variant: #c8d9e7;
+  --nav-bg: rgba(247, 251, 255, 0.86);
+  --surface-container: #e0f1fc;
+}
+
+body {
+  font-family: 'Roboto', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: #f5f5f5;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+}
+
+.app-shell {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  min-height: 100dvh;
+  background: var(--surface);
+}

@@ -1,0 +1,365 @@
+.pb-screen {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100dvh;
+  background: var(--surface);
+}
+
+/* ── Top bar ─────────────────────────────────────────── */
+.pb-topbar {
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--nav-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 0.5px solid var(--outline-variant);
+}
+
+.pb-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  padding: 0 4px;
+}
+
+.pb-navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.pb-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--on-surface);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pb-icon-btn:active {
+  opacity: 0.7;
+}
+
+/* ── Toolbar ─────────────────────────────────────────── */
+.pb-toolbar {
+  display: flex;
+  padding: 8px 8px 12px;
+  gap: 4px;
+}
+
+.pb-tool {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+
+.pb-tool-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: var(--surface-container);
+  border: 0.5px solid var(--outline-variant);
+  border-radius: 12px;
+  color: var(--on-surface);
+  flex-shrink: 0;
+}
+
+.pb-tool-label {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--on-surface);
+  letter-spacing: 0.26px;
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* ── Scroll area ─────────────────────────────────────── */
+.pb-scroll {
+  flex: 1;
+  padding: 24px 28px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── Section (spread + labels) ───────────────────────── */
+.pb-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ── Book spread ─────────────────────────────────────── */
+.pb-spread {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2.539;
+}
+
+.pb-surround {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ── Photo areas (absolute within the spread) ─────────── */
+.pb-area {
+  position: absolute;
+  overflow: hidden;
+}
+
+/* Cover: right-side photo */
+.pb-area--cover-right {
+  top: 9.5%; bottom: 9%;
+  left: 53.17%; right: 3.21%;
+}
+
+/* Single photo on right page */
+.pb-area--right-full {
+  top: 9.5%; bottom: 9%;
+  left: 52.09%; right: 4.29%;
+}
+
+/* Single photo on left page */
+.pb-area--left-full {
+  top: 9.5%; bottom: 9%;
+  left: 4.73%; right: 51.65%;
+}
+
+/* Full-spread single photo (pages 4–5) */
+.pb-area--full-spread {
+  top: 9.5%; bottom: 9%;
+  left: 4.76%; right: 4.66%;
+}
+
+/* Left page of a double-page spread */
+.pb-area--left-page {
+  top: 9.5%; bottom: 9.25%;
+  left: 5.15%; right: 52.02%;
+}
+
+/* Right page of a double-page spread */
+.pb-area--right-page {
+  top: 9.75%; bottom: 9%;
+  left: 52.51%; right: 4.66%;
+}
+
+/* ── Split layout (1 large + 2 small) ───────────────── */
+.pb-split {
+  display: flex;
+  gap: 2%;
+  width: 100%;
+  height: 100%;
+}
+
+.pb-split-main {
+  flex: 1;
+  overflow: hidden;
+}
+
+.pb-split-stack {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2%;
+  overflow: hidden;
+}
+
+.pb-split-item {
+  flex: 1;
+  overflow: hidden;
+}
+
+.pb-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Corner action buttons ───────────────────────────── */
+.pb-corner {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 0.5px solid var(--outline-variant);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.pb-corner--del {
+  background: #ffe9e8;
+  color: #c62828;
+}
+
+.pb-corner--add {
+  background: var(--surface-container);
+  color: var(--on-surface);
+}
+
+.pb-corner--tl { top: -12px; left: -12px; }
+.pb-corner--tr { top: -12px; right: -12px; }
+.pb-corner--bl { bottom: -12px; left: -12px; }
+.pb-corner--br { bottom: -12px; right: -12px; }
+.pb-corner--center {
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* ── Add between spreads ─────────────────────────────── */
+.pb-add-between {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+}
+
+.pb-add-between-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--surface-container);
+  border: 0.5px solid var(--outline-variant);
+  color: var(--on-surface);
+  cursor: pointer;
+}
+
+/* ── Page labels ─────────────────────────────────────── */
+.pb-labels {
+  display: flex;
+  align-items: center;
+}
+
+.pb-labels span {
+  flex: 1;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--on-surface-variant);
+  letter-spacing: 0.48px;
+  line-height: 16px;
+}
+
+/* ── Add 4 pages button ──────────────────────────────── */
+.pb-add-pages-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  align-self: center;
+  padding: 10px 20px 10px 16px;
+  border-radius: 999px;
+  background: var(--primary, #0076c8);
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.25px;
+  cursor: pointer;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.pb-add-pages-btn:active {
+  opacity: 0.85;
+}
+
+/* ── Bottom bar ──────────────────────────────────────── */
+.pb-bottombar {
+  flex-shrink: 0;
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  background: var(--nav-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 0.5px solid var(--outline-variant);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pb-bottombar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  padding: 8px 16px 4px;
+  height: 66px;
+}
+
+.pb-product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pb-product-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--on-surface);
+  letter-spacing: 0.17px;
+  line-height: 23px;
+}
+
+.pb-product-size {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--on-surface-variant);
+  letter-spacing: 0.48px;
+  line-height: 16px;
+}
+
+.pb-cart-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 20px 10px 16px;
+  border-radius: 999px;
+  background: #ff4900;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.25px;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.pb-cart-btn:active {
+  opacity: 0.85;
+}
+
+.pb-home-indicator {
+  width: 134px;
+  height: 5px;
+  border-radius: 100px;
+  background: var(--on-surface);
+  margin: 8px auto;
+}

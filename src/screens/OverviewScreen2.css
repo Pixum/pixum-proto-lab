@@ -1,0 +1,277 @@
+.ov2-screen {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100dvh;
+  background: var(--surface);
+}
+
+/* ── Navbar ─────────────────────────────────────────── */
+.ov2-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 4px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--nav-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 0.5px solid var(--outline-variant);
+}
+
+.ov2-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--on-surface);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.ov2-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--on-surface);
+  letter-spacing: -0.2px;
+}
+
+/* ── Scroll container ────────────────────────────────── */
+.ov2-scroll {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+/* ── Hero image ──────────────────────────────────────── */
+.ov2-hero-wrap {
+  padding: 0 16px;
+  flex-shrink: 0;
+}
+
+.ov2-hero-img {
+  width: 100%;
+  height: 238px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+
+/* ── Header (badge + heading) ────────────────────────── */
+.ov2-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  flex-shrink: 0;
+}
+
+.ov2-badge {
+  background: var(--surface-container);
+  color: var(--on-surface);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.26px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.ov2-heading {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--on-surface);
+  text-align: center;
+  letter-spacing: -0.5px;
+  line-height: 1.25;
+  margin: 0;
+}
+
+/* ── Tip card ────────────────────────────────────────── */
+.ov2-tip {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0 16px;
+  padding: 12px 14px;
+  background: var(--surface-container);
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.ov2-tip-icon {
+  flex-shrink: 0;
+  color: var(--primary);
+  margin-top: 1px;
+}
+
+.ov2-tip-text {
+  font-size: 13px;
+  color: var(--on-surface-variant);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* ── Search bar ──────────────────────────────────────── */
+.ov2-searchbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  margin: 0 16px;
+  padding: 12px 14px;
+  background: var(--surface-container);
+  border-radius: 999px;
+  color: var(--on-surface-variant);
+  flex-shrink: 0;
+}
+
+.ov2-searchbar-placeholder {
+  font-size: 15px;
+  color: var(--on-surface-variant);
+}
+
+/* ── Photo grid ──────────────────────────────────────── */
+.ov2-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.ov2-cell {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.ov2-cell-btn {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+}
+
+.ov2-cell-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Excluded state ──────────────────────────────────── */
+.ov2-excluded-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+}
+
+.ov2-excluded-badge {
+  position: absolute;
+  top: 8px;
+  right: 4px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: #ffcbc9;
+  border: 0.5px solid var(--outline-variant);
+  border-radius: 999px;
+  padding: 3px 6px 3px 2px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #74100a;
+  letter-spacing: 0.2px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* ── Preview button (magnifier) ──────────────────────── */
+.ov2-preview-btn {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--nav-bg);
+  border: 0.5px solid var(--outline-variant);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  color: var(--on-surface);
+  transition: opacity 0.12s;
+}
+
+.ov2-preview-btn:active {
+  opacity: 0.7;
+}
+
+/* ── Bottom bar ──────────────────────────────────────── */
+.ov2-bottombar {
+  flex-shrink: 0;
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  background: var(--nav-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 0.5px solid var(--outline-variant);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ov2-bottombar-inner {
+  width: 100%;
+  padding: 8px 16px 4px;
+}
+
+.ov2-cta {
+  display: block;
+  width: 100%;
+  height: 48px;
+  border-radius: 999px;
+  background: var(--primary);
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.25px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.ov2-cta:active {
+  opacity: 0.85;
+}
+
+.ov2-home-indicator {
+  width: 134px;
+  height: 5px;
+  border-radius: 100px;
+  background: var(--on-surface);
+  margin: 8px auto;
+}

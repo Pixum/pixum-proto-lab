@@ -1,0 +1,250 @@
+.pp-screen {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100dvh;
+  background: var(--surface);
+}
+
+/* ── Navbar ─────────────────────────────────────────── */
+.pp-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 4px 0 4px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--nav-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 0.5px solid var(--outline-variant);
+}
+
+.pp-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--on-surface);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pp-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--on-surface);
+  letter-spacing: -0.2px;
+}
+
+/* ── Tabs ────────────────────────────────────────────── */
+.pp-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--outline-variant);
+  flex-shrink: 0;
+  position: sticky;
+  top: 56px;
+  z-index: 9;
+  background: var(--surface);
+}
+
+.pp-tab {
+  flex: 1;
+  height: 44px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--on-surface-variant);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.pp-tab--active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+/* ── Scrollable content ──────────────────────────────── */
+.pp-scroll {
+  flex: 1;
+  padding-bottom: 24px;
+}
+
+/* ── Info banner ─────────────────────────────────────── */
+.pp-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 12px 16px;
+  padding: 12px 14px;
+  background: var(--surface-container, #e0f1fc);
+  border-radius: 12px;
+}
+
+.pp-banner-icon {
+  color: var(--primary);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.pp-banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pp-banner-primary {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--on-surface);
+  line-height: 1.4;
+}
+
+.pp-banner-secondary {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--on-surface-variant);
+  line-height: 1.4;
+}
+
+/* ── Section ─────────────────────────────────────────── */
+.pp-section {
+  margin-top: 20px;
+}
+
+.pp-section-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--on-surface);
+  padding: 0 16px 10px;
+  letter-spacing: -0.2px;
+}
+
+/* ── Top Events row ──────────────────────────────────── */
+.pp-events-row {
+  display: flex;
+  gap: 12px;
+  padding: 0 16px 4px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.pp-events-row::-webkit-scrollbar {
+  display: none;
+}
+
+.pp-event-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.pp-event-thumb {
+  width: 120px;
+  height: 120px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--outline-variant);
+  flex-shrink: 0;
+}
+
+.pp-event-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pp-event-placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--outline-variant);
+}
+
+.pp-event-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--on-surface);
+  text-align: center;
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pp-event-date {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--on-surface-variant);
+  text-align: center;
+  margin-top: -4px;
+}
+
+/* ── Folders grid ────────────────────────────────────── */
+.pp-folders-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 0 16px;
+}
+
+.pp-folder-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+}
+
+.pp-folder-thumb {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--outline-variant);
+}
+
+.pp-folder-thumb--placeholder {
+  background: #d0dce8;
+}
+
+.pp-folder-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pp-folder-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--on-surface);
+  line-height: 1.3;
+}
+
+.pp-folder-count {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--on-surface-variant);
+  margin-top: -2px;
+}

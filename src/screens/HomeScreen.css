@@ -1,0 +1,160 @@
+.hs-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: var(--surface);
+}
+
+.hs-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: var(--nav-bg);
+  display: flex;
+  flex-direction: column;
+}
+
+.hs-navbar {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+}
+
+.hs-logo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.hs-logo-text {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: -0.3px;
+}
+
+.hs-nav-actions {
+  display: flex;
+  align-items: center;
+}
+
+.hs-nav-btn {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  color: var(--on-surface);
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 7px;
+}
+
+.hs-nav-btn:active {
+  background: var(--surface-container);
+}
+
+.hs-nav-badge {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 10px;
+  height: 10px;
+  background: #e53935;
+  border-radius: 50%;
+  border: 1.5px solid var(--surface);
+}
+
+.hs-scroll {
+  flex: 1;
+}
+
+.hs-tiles {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px 16px 64px;
+}
+
+.hs-tile {
+  position: relative;
+  height: 352px;
+  border-radius: 36px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.hs-tile--clickable {
+  cursor: pointer;
+}
+
+.hs-tile--clickable:active .hs-tile-gradient {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 80%);
+}
+
+.hs-tile-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hs-tile-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 44%, rgba(0, 0, 0, 0.8) 80%);
+}
+
+.hs-tile-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 0 20px;
+}
+
+.hs-badge {
+  display: inline-flex;
+  align-items: center;
+  background: #fcd441;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--on-surface);
+  letter-spacing: 0.26px;
+  align-self: flex-start;
+  margin-left: 24px;
+  white-space: nowrap;
+}
+
+.hs-tile-text {
+  padding: 0 24px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hs-tile-title {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  letter-spacing: -0.12px;
+}
+
+.hs-tile-desc {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.18px;
+}

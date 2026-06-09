@@ -1,0 +1,148 @@
+.lq-screen {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100dvh;
+  background: var(--surface);
+}
+
+.lq-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 4px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--nav-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 0.5px solid var(--outline-variant);
+}
+
+.lq-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--on-surface);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.lq-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--on-surface);
+  letter-spacing: -0.2px;
+}
+
+.lq-scroll {
+  flex: 1;
+  padding: 24px 16px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.lq-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lq-heading {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--on-surface);
+  letter-spacing: -0.12px;
+  line-height: 1.33;
+}
+
+.lq-desc {
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--on-surface-variant);
+  letter-spacing: 0.17px;
+  line-height: 1.47;
+}
+
+.lq-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.lq-photo {
+  position: relative;
+  width: calc((100% - 4px) / 3);
+  aspect-ratio: 1;
+  background: #c9e4f2;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.lq-photo-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.lq-overlay {
+  position: absolute;
+  inset: 0;
+  background: white;
+  opacity: 0.5;
+}
+
+.lq-badge {
+  position: absolute;
+  top: 8px;
+  right: 4px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 22px;
+  padding: 4px 4px 4px 2px;
+  background: #ffcbc9;
+  border: 0.5px solid var(--outline-variant);
+  border-radius: 999px;
+  color: #74100a;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.48px;
+  white-space: nowrap;
+}
+
+.lq-loupe {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lq-loupe > svg {
+  background: rgba(247, 251, 255, 0.86);
+  border: 0.5px solid var(--outline-variant);
+  border-radius: 999px;
+  padding: 4px;
+  width: 24px;
+  height: 24px;
+  color: var(--on-surface);
+}
