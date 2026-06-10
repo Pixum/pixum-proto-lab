@@ -147,11 +147,14 @@ export default function ChaptersScreen({ onBack, onNext }) {
   )
 
   // Drag refs — updated synchronously, never cause re-renders
-  const dragRef = useRef(null)    // { chapterIdx, photoIdx, offsetX, offsetY, longPressReady }
-  const dragOverRef = useRef(null) // { chapterIdx, photoIdx } — mirrors dragOver state
+  // dragRef.state: 'pending' | 'scrolling' | 'longPressed' | 'dragging'
+  const dragRef = useRef(null)
+  const dragOverRef = useRef(null)
   const ghostRef = useRef(null)
   const ghostImgRef = useRef(null)
   const longPressTimerRef = useRef(null)
+  const scrollRef = useRef(null)   // .ch-scroll container for manual scroll
+  const momentumRef = useRef(null) // rAF id for scroll momentum
   const LONG_PRESS_MS = 500
 
   // Only these drive visual updates
@@ -191,26 +194,37 @@ export default function ChaptersScreen({ onBack, onNext }) {
   // Stable move/up handlers — deps are all stable (state setters + reorder with [] deps)
   const handlePointerMove = useCallback((e) => {
     if (!dragRef.current) return
-    const { offsetX, offsetY } = dragRef.current
+    const { state } = dragRef.current
 
-    if (!dragRef.current.longPressReady) {
-      const dx = e.clientX - dragRef.current.startX
-      const dy = e.clientY - dragRef.current.startY
-      if (Math.hypot(dx, dy) > 8) {
-        // Moved too far before long-press — treat as scroll, cancel
-        clearTimeout(longPressTimerRef.current)
-        dragRef.current = null
-        window.removeEventListener('pointermove', handlePointerMove)
-        // pointerup listener stays so it can clean itself up when finger lifts
+    // Manual scroll while waiting for long-press or after scroll intent confirmed
+    if (state === 'pending' || state === 'scrolling') {
+      const deltaY = dragRef.current.prevY - e.clientY
+      const dt = e.timeStamp - dragRef.current.prevT
+      // Smooth velocity with EMA for momentum
+      dragRef.current.velY = dt > 0
+        ? 0.8 * dragRef.current.velY + 0.2 * (deltaY / dt)
+        : dragRef.current.velY
+      dragRef.current.prevY = e.clientY
+      dragRef.current.prevT = e.timeStamp
+      if (scrollRef.current) scrollRef.current.scrollTop += deltaY
+
+      if (state === 'pending') {
+        const dx = e.clientX - dragRef.current.startX
+        const dy = e.clientY - dragRef.current.startY
+        if (Math.hypot(dx, dy) > 8) {
+          clearTimeout(longPressTimerRef.current)
+          dragRef.current.state = 'scrolling'
+        }
       }
       return
     }
 
-    if (!dragRef.current.active) {
+    // Activate drag once finger moves enough after long-press
+    if (state === 'longPressed') {
       const dx = e.clientX - dragRef.current.startX
       const dy = e.clientY - dragRef.current.startY
       if (Math.hypot(dx, dy) < 4) return
-      dragRef.current.active = true
+      dragRef.current.state = 'dragging'
       e.preventDefault()
       document.body.style.userSelect = 'none'
       if (ghostRef.current) ghostRef.current.style.display = 'block'
@@ -220,25 +234,26 @@ export default function ChaptersScreen({ onBack, onNext }) {
       return
     }
 
-    const ghost = ghostRef.current
-    if (ghost) {
-      ghost.style.transform = `translate(${e.clientX - offsetX}px, ${e.clientY - offsetY}px)`
-    }
-
-    // Hit-test through ghost (pointer-events: none on ghost lets this work)
-    const el = document.elementFromPoint(e.clientX, e.clientY)
-    const tile = el?.closest('[data-chapter][data-photo]')
-    if (tile) {
-      const ch = Number(tile.dataset.chapter)
-      const ph = Number(tile.dataset.photo)
-      const next = { chapterIdx: ch, photoIdx: ph }
-      dragOverRef.current = next
-      setDragOver(prev =>
-        prev?.chapterIdx === ch && prev?.photoIdx === ph ? prev : next
-      )
-    } else {
-      dragOverRef.current = null
-      setDragOver(null)
+    if (state === 'dragging') {
+      const { offsetX, offsetY } = dragRef.current
+      if (ghostRef.current) {
+        ghostRef.current.style.transform = `translate(${e.clientX - offsetX}px, ${e.clientY - offsetY}px)`
+      }
+      // Hit-test through ghost (pointer-events: none on ghost lets this work)
+      const el = document.elementFromPoint(e.clientX, e.clientY)
+      const tile = el?.closest('[data-chapter][data-photo]')
+      if (tile) {
+        const ch = Number(tile.dataset.chapter)
+        const ph = Number(tile.dataset.photo)
+        const next = { chapterIdx: ch, photoIdx: ph }
+        dragOverRef.current = next
+        setDragOver(prev =>
+          prev?.chapterIdx === ch && prev?.photoIdx === ph ? prev : next
+        )
+      } else {
+        dragOverRef.current = null
+        setDragOver(null)
+      }
     }
   }, [setDragging, setDragOver, setLongPressActive])
 
@@ -251,42 +266,66 @@ export default function ChaptersScreen({ onBack, onNext }) {
     window.removeEventListener('pointercancel', handlePointerUp)
 
     if (!dragRef.current) return
-    const { chapterIdx: srcCh, photoIdx: srcIdx, active } = dragRef.current
-    const over = dragOverRef.current
+    const { state } = dragRef.current
 
-    if (active && over && !(over.chapterIdx === srcCh && over.photoIdx === srcIdx)) {
-      reorder(srcCh, srcIdx, over.chapterIdx, over.photoIdx)
+    if (state === 'scrolling' || state === 'pending') {
+      // Kick off momentum scroll
+      const vel = dragRef.current.velY ?? 0
+      const scroll = scrollRef.current
+      if (scroll && Math.abs(vel) > 0.05) {
+        let velocity = vel * 16 // px/ms → px/frame at ~60 fps
+        const step = () => {
+          velocity *= 0.95
+          if (Math.abs(velocity) < 0.5) { momentumRef.current = null; return }
+          scroll.scrollTop += velocity
+          momentumRef.current = requestAnimationFrame(step)
+        }
+        momentumRef.current = requestAnimationFrame(step)
+      }
+    } else if (state === 'dragging') {
+      const { chapterIdx: srcCh, photoIdx: srcIdx } = dragRef.current
+      const over = dragOverRef.current
+      if (over && !(over.chapterIdx === srcCh && over.photoIdx === srcIdx)) {
+        reorder(srcCh, srcIdx, over.chapterIdx, over.photoIdx)
+      }
+      document.body.style.userSelect = ''
+      if (ghostRef.current) ghostRef.current.style.display = 'none'
+      setDragging(null)
+      setDragOver(null)
     }
 
     dragRef.current = null
     dragOverRef.current = null
-
-    document.body.style.userSelect = ''
-    if (ghostRef.current) ghostRef.current.style.display = 'none'
-
-    setDragging(null)
-    setDragOver(null)
   }, [handlePointerMove, reorder, setDragging, setDragOver, setLongPressActive])
 
   const handlePointerDown = useCallback((chapterIdx, photoIdx, src, e) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    const offsetX = e.clientX - rect.left
-    const offsetY = e.clientY - rect.top
+    // Stop any ongoing momentum scroll
+    if (momentumRef.current) {
+      cancelAnimationFrame(momentumRef.current)
+      momentumRef.current = null
+    }
 
-    dragRef.current = { chapterIdx, photoIdx, offsetX, offsetY, src, startX: e.clientX, startY: e.clientY, active: false, longPressReady: false }
+    const rect = e.currentTarget.getBoundingClientRect()
+    dragRef.current = {
+      state: 'pending',
+      chapterIdx, photoIdx, src,
+      offsetX: e.clientX - rect.left,
+      offsetY: e.clientY - rect.top,
+      startX: e.clientX, startY: e.clientY,
+      prevY: e.clientY, prevT: e.timeStamp, velY: 0,
+    }
     dragOverRef.current = null
 
     if (ghostImgRef.current) ghostImgRef.current.src = src
-    const ghost = ghostRef.current
-    if (ghost) {
-      ghost.style.width = `${rect.width}px`
-      ghost.style.height = `${rect.height}px`
-      ghost.style.transform = `translate(${rect.left}px, ${rect.top}px)`
+    if (ghostRef.current) {
+      ghostRef.current.style.width = `${rect.width}px`
+      ghostRef.current.style.height = `${rect.height}px`
+      ghostRef.current.style.transform = `translate(${rect.left}px, ${rect.top}px)`
     }
 
     longPressTimerRef.current = setTimeout(() => {
-      if (dragRef.current) {
-        dragRef.current.longPressReady = true
+      if (dragRef.current?.state === 'pending') {
+        dragRef.current.state = 'longPressed'
         setLongPressActive({ chapterIdx, photoIdx })
         navigator.vibrate?.(50)
       }
@@ -305,6 +344,7 @@ export default function ChaptersScreen({ onBack, onNext }) {
   useEffect(() => {
     return () => {
       clearTimeout(longPressTimerRef.current)
+      if (momentumRef.current) cancelAnimationFrame(momentumRef.current)
       window.removeEventListener('pointermove', handlePointerMove)
       window.removeEventListener('pointerup', handlePointerUp)
       window.removeEventListener('pointercancel', handlePointerUp)
@@ -329,7 +369,7 @@ export default function ChaptersScreen({ onBack, onNext }) {
         </div>
       </div>
 
-      <div className="ch-scroll">
+      <div className="ch-scroll" ref={scrollRef}>
         <p className="ch-heading">Fotos nach Kapiteln</p>
         <div className="ch-chapters">
           {chapters.map((chapter, i) => {
