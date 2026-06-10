@@ -248,6 +248,7 @@ export default function ChaptersScreen({ onBack, onNext }) {
     // Always remove listeners synchronously — no React timing dependency
     window.removeEventListener('pointermove', handlePointerMove)
     window.removeEventListener('pointerup', handlePointerUp)
+    window.removeEventListener('pointercancel', handlePointerUp)
 
     if (!dragRef.current) return
     const { chapterIdx: srcCh, photoIdx: srcIdx, active } = dragRef.current
@@ -291,11 +292,13 @@ export default function ChaptersScreen({ onBack, onNext }) {
       }
     }, LONG_PRESS_MS)
 
-    // Add listeners synchronously so pointerup is always caught, even on fast taps
+    // Add listeners synchronously so pointerup/cancel is always caught, even on fast taps
     window.removeEventListener('pointermove', handlePointerMove)
     window.removeEventListener('pointerup', handlePointerUp)
+    window.removeEventListener('pointercancel', handlePointerUp)
     window.addEventListener('pointermove', handlePointerMove)
     window.addEventListener('pointerup', handlePointerUp)
+    window.addEventListener('pointercancel', handlePointerUp)
   }, [handlePointerMove, handlePointerUp])
 
   // Safety net: remove listeners and timer if component unmounts mid-drag
@@ -304,6 +307,7 @@ export default function ChaptersScreen({ onBack, onNext }) {
       clearTimeout(longPressTimerRef.current)
       window.removeEventListener('pointermove', handlePointerMove)
       window.removeEventListener('pointerup', handlePointerUp)
+      window.removeEventListener('pointercancel', handlePointerUp)
     }
   }, [handlePointerMove, handlePointerUp])
 
