@@ -41,11 +41,16 @@ export default function App() {
   })
   const [filteredExcluded, setFilteredExcluded] = useState(() => new Set(filteredPhotos.map((_, i) => i)))
   const [lowQualityExcluded, setLowQualityExcluded] = useState(() => new Set(lowQualityPhotos.map((_, i) => i)))
+  const [viewedPrototypes, setViewedPrototypes] = useState(new Set())
 
   return (
     <div className="app-shell">
       {screen === 'home' && (
-        <HomeScreen onStartPrototype={(id) => { setPrototypeId(id); setScreen('intro'); }} />
+        <HomeScreen onStartPrototype={(id) => {
+          setViewedPrototypes(prev => new Set([...prev, id]))
+          setPrototypeId(id)
+          setScreen('intro')
+        }} />
       )}
       {screen === 'intro' && (
         <IntroductionScreen onBack={() => setScreen('home')} onComplete={() => setScreen('photopicker')} />
@@ -107,10 +112,15 @@ export default function App() {
         />
       )}
       {screen === 'layout-preset' && prototypeId === 2 && (
-        <LayoutPresetScreen2
-          onBack={() => setScreen('chapters')}
-          onNext={() => { setLoadingTarget('page-builder'); setLoadingDuration(3000); setScreen('loading'); }}
-        />
+        viewedPrototypes.has(3) && !viewedPrototypes.has(1)
+          ? <LayoutPresetScreen
+              onBack={() => setScreen('chapters')}
+              onNext={() => { setLoadingTarget('page-builder'); setLoadingDuration(3000); setScreen('loading'); }}
+            />
+          : <LayoutPresetScreen3
+              onBack={() => setScreen('chapters')}
+              onNext={() => { setLoadingTarget('page-builder'); setLoadingDuration(3000); setScreen('loading'); }}
+            />
       )}
       {screen === 'layout-preset' && prototypeId === 3 && (
         <LayoutPresetScreen3
