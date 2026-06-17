@@ -76,9 +76,9 @@ export default function PhotoPickerScreen({ onBack, onOpenAlbum }) {
               onClick={() => onOpenAlbum({ name: 'Kamerarolle', images: fotosetImages })}
             >
               <div className="pp-folder-thumb">
-                <img src={thumb(0)} alt="Kamerarolle" loading="lazy" />
+                <img src={thumb(0)} alt="Kamera" loading="lazy" />
               </div>
-              <span className="pp-folder-name">Kamerarolle</span>
+              <span className="pp-folder-name">Kamera</span>
               <span className="pp-folder-count">{fotosetImages.length} Fotos</span>
             </button>
 

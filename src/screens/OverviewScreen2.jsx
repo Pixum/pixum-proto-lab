@@ -37,8 +37,8 @@ export default function OverviewScreen2({ onBack, onNext, onPreview }) {
         </div>
 
         <div className="ov2-header">
-          <div className="ov2-badge">Von 1.032 Bildern</div>
-          <h1 className="ov2-heading">Wir haben Ihre 302 besten Fotos ausgewählt</h1>
+          <div className="ov2-badge">Von 91 Bildern</div>
+          <h1 className="ov2-heading">Wir haben Ihre 71 besten Fotos ausgewählt</h1>
         </div>
 
         <div className="ov2-tip">

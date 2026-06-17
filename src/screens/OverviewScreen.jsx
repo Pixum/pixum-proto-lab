@@ -3,7 +3,7 @@ import './OverviewScreen.css'
 
 const items = [
   {
-    title: '86 Duplikate identifiziert',
+    title: '14 Duplikate identifiziert',
     description: 'Duplikate sind Bilder, die ähnlich aussehen und zur gleichen Zeit aufgenommen wurden',
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -12,7 +12,7 @@ const items = [
     ),
   },
   {
-    title: '16 Bilder mit geringer Qualität gefunden',
+    title: '13 Bilder mit geringer Qualität gefunden',
     description: 'Bilder von geringer Qualität basieren auf Qualität, Schärfe und Dunkelheit',
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -48,9 +48,9 @@ export default function OverviewScreen({ onBack, onDuplicates, onLowQuality, onF
       <div className="ov-scroll">
         <img src={previewImg} alt="" className="ov-preview-img" />
 
-        <div className="ov-badge">Von 420 Bildern</div>
+        <div className="ov-badge">Von 91 Bildern</div>
 
-        <h1 className="ov-heading">Wir haben Ihre 117 besten Fotos ausgewählt</h1>
+        <h1 className="ov-heading">Wir haben Ihre 71 besten Fotos ausgewählt</h1>
 
         <div className="ov-list">
           {items.map((item, i) => (
