@@ -466,7 +466,7 @@ export default function ChaptersScreen({ onBack, onNext }) {
                 <div className="ch-item-card">
                   <div className="ch-item-row">
                     <span className="ch-item-icon"><SplitIcon /></span>
-                    <span className="ch-item-text">Kapitel teilen</span>
+                    <span className="ch-item-text">Kapitel aufteilen</span>
                   </div>
                   <div className="ch-item-divider" />
                   <div className="ch-item-row">
