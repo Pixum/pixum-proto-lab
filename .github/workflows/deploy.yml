@@ -22,11 +22,19 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      - run: npm ci
-      - run: npm run build
+          cache-dependency-path: projects/*/package-lock.json
+      - name: Build every project into site/<name>/
+        run: |
+          mkdir site
+          cp site-index/index.html site/
+          for dir in projects/*/; do
+            name=$(basename "$dir")
+            (cd "$dir" && npm ci && npm run build)
+            cp -r "$dir/dist" "site/$name"
+          done
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: site
 
   deploy:
     needs: build

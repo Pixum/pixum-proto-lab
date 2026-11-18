@@ -1,0 +1,27 @@
+.canvas {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-bg);
+  background-image: radial-gradient(circle, var(--color-dot) 1px, transparent 1.2px);
+  background-size: 20px 20px;
+  user-select: none;
+  overflow: hidden;
+}
+
+/* Free area for the book: the canvas minus the floating sidebar, with an outer margin. */
+.stage {
+  position: absolute;
+  top: var(--canvas-top, 56px); /* clears the Layouts button in the top-left corner */
+  bottom: var(--canvas-margin, 32px);
+  left: var(--canvas-margin, 32px);
+  right: calc(var(--sidebar-width, 320px) + var(--space-4, 16px) + var(--canvas-margin, 32px));
+}
+
+/* Centered in the stage at its natural size (max-content), then scaled by FitToView. */
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max-content;
+  transform-origin: center;
+}

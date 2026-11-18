@@ -1,0 +1,332 @@
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: 28px;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.field {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-text);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-control);
+  padding: var(--space-1) var(--space-2);
+  height: 28px;
+  outline: none;
+  transition: border-color 120ms ease;
+}
+
+.field:focus-visible {
+  border-color: var(--color-accent);
+}
+
+.numberWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.number {
+  width: 72px;
+  text-align: right;
+}
+
+.unit {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-text-muted);
+  min-width: 16px;
+}
+
+/* Native up/down arrows, always visible inside the field (browsers hide them until hover by default). */
+.arrows::-webkit-inner-spin-button,
+.arrows::-webkit-outer-spin-button {
+  opacity: 1;
+  margin-left: var(--space-2);
+}
+
+.noArrows {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.noArrows::-webkit-inner-spin-button,
+.noArrows::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Dropdown: custom chevron with space on the right. */
+.select {
+  min-width: 110px;
+  appearance: none;
+  padding-right: 28px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none' stroke='%238a8a90' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+.sliderWrap {
+  min-width: 0; /* lets the slider shrink instead of pushing the row past the panel edge */
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.slider {
+  flex: 1;
+  min-width: 0;
+  max-width: 80px;
+  accent-color: var(--color-accent);
+}
+
+.toggle {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+
+.toggle::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-text-muted);
+  transition: transform 150ms ease, background 150ms ease;
+}
+
+.toggle[aria-checked='true'] {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.toggle[aria-checked='true']::after {
+  transform: translateX(16px);
+  background: var(--color-text);
+}
+
+.toggle:focus-visible {
+  outline: 1px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Text style (e.g. Caption): font, weight and size, line height and letter spacing, alignment, color. */
+.textStyle {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* Full-width dropdown, 32 px high like the icon fields. */
+.wide {
+  width: 100%;
+  min-width: 0;
+  height: 32px;
+}
+
+.weightSize {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: var(--space-2);
+}
+
+.twoCols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+
+.labelled {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+/* Number field with an icon in front and the unit behind, filling its column. */
+.iconField {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 32px;
+  min-width: 0;
+  padding: 0 var(--space-2);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-control);
+  transition: border-color 120ms ease;
+}
+
+.iconField:focus-within {
+  border-color: var(--color-accent);
+}
+
+.fieldIcon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+}
+
+.iconInput {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-text);
+  background: transparent;
+  border: 0;
+  outline: none;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.iconInput::-webkit-inner-spin-button,
+.iconInput::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.fieldUnit {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* Segmented buttons (alignment): one is pressed. */
+.segmented {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: 32px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-control);
+}
+
+.segment {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  color: var(--color-text-muted);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.segment:hover {
+  color: var(--color-text);
+}
+
+.segment[aria-pressed='true'] {
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.segment:focus-visible {
+  outline: 1px solid var(--color-accent);
+  outline-offset: -2px;
+}
+
+/* Linked pair (e.g. page padding): label and link button on top, the sliders below. */
+.pair {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.link {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  color: var(--color-text-muted);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  transition: border-color 120ms ease, color 120ms ease;
+}
+
+.link:hover {
+  color: var(--color-text);
+}
+
+/* Accent marks the active (linked) state only. */
+.link[aria-pressed='true'] {
+  color: var(--color-text);
+  border-color: var(--color-accent);
+}
+
+.link:focus-visible {
+  outline: 1px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.colorWrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.hex {
+  width: 84px;
+  text-transform: lowercase;
+}
+
+/* Square swatch, same height as the other fields. */
+.swatch {
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-control);
+  background: none;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.swatch::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.swatch::-webkit-color-swatch {
+  border: 0;
+}
+
+.swatch::-moz-color-swatch {
+  border: 0;
+}
+
+.swatch:focus-visible {
+  outline: 1px solid var(--color-accent);
+  outline-offset: 2px;
+}

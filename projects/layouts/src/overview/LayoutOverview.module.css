@@ -1,0 +1,155 @@
+/* Fills the canvas (under the floating sidebar) and scrolls. Same dotted background as the canvas. */
+.overview {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  /* The top padding keeps the content clear of the Back button in the top-left corner (16 + 32 + 16). */
+  padding: 64px calc(var(--sidebar-width) + var(--space-4) * 2 + var(--space-5)) 72px var(--space-5);
+  background-color: var(--color-bg);
+  background-image: radial-gradient(circle, var(--color-dot) 1px, transparent 1.2px);
+  background-size: 20px 20px;
+}
+
+.header {
+  margin-bottom: var(--space-5);
+}
+
+.title {
+  margin: 0 0 var(--space-1);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.sub {
+  margin: 0 0 var(--space-3);
+  max-width: 640px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.swatchPlaceholder {
+  background: var(--color-placeholder);
+}
+
+.swatchSpacer {
+  border: 1px dashed var(--color-text-muted);
+}
+
+.swatchCaption {
+  border: 1px dashed #ff7a59;
+}
+
+.toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.toggle input {
+  accent-color: var(--color-accent);
+}
+
+.group {
+  margin-bottom: var(--space-5);
+  padding-top: calc(var(--space-5) * 2);
+  border-top: 1px solid var(--color-border);
+}
+
+.groupTitle {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-4);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.groupCount {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 300px);
+  gap: var(--space-5) var(--space-4);
+}
+
+.card {
+  margin: 0;
+  /* Title, page and checks share row heights with the other cards in the same row,
+     so every page starts at the same height even when a title wraps to two lines. */
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+  row-gap: 0;
+}
+
+.cardTitle {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+  font-size: 12px;
+}
+
+.cardId {
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+.checks {
+  margin-top: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.ok {
+  color: var(--color-ok);
+}
+
+.warn {
+  color: var(--color-warn);
+}

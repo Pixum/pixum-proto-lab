@@ -1,0 +1,41 @@
+/* Design tokens: the single place for colors, spacing, radii and fonts.
+   Values are first estimates from the references (docs/DESIGN_DIRECTION.md) and can be tuned. */
+:root {
+  /* Surfaces */
+  --color-bg: #0b0b0c;
+  --color-panel: rgba(26, 26, 28, 0.6); /* translucent, for the glass sidebar */
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-dot: rgba(255, 255, 255, 0.12);
+
+  --color-page: #e6e6e4; /* book pages: light against the dark canvas */
+  --color-placeholder: #fbd0e8; /* photo placeholders: light pink */
+  --color-placeholder-text: #7a2f5c;
+  --color-ok: #5fd38d; /* layout checks: passed */
+  --color-warn: #ffb454; /* layout checks: needs attention */
+
+  /* Layout */
+  --sidebar-width: 320px;
+  --canvas-margin: 32px;
+  --canvas-top: 56px; /* larger than the margin: leaves room for the Layouts button (16 + 32 + 8) */
+
+  /* Text */
+  --color-text: #ececee;
+  --color-text-muted: #8a8a90;
+
+  /* Accent: active and focused states only. Placeholder value, to be confirmed. */
+  --color-accent: #4a3df0;
+
+  /* Spacing and shape */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --radius-panel: 16px;
+  --radius-control: 8px;
+
+  /* Typography: Inter for titles, Geist Mono for labels and numbers.
+     Font files are supplied by the user (src/assets/fonts); system fonts are the fallback. */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, monospace;
+}

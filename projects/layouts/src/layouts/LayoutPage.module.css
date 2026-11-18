@@ -1,0 +1,58 @@
+/* One page, always in the 1080 × 1440 proportion, at whatever width its parent gives it. */
+.page {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1080 / 1440;
+  container-type: inline-size; /* lets the corner radius use cqw (page-relative) units */
+}
+
+.cell {
+  position: absolute;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  pointer-events: none;
+}
+
+.placeholder {
+  position: absolute;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  background: var(--color-placeholder);
+  color: var(--color-placeholder-text);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.3;
+  overflow: hidden; /* clips a photo to the corner radius */
+}
+
+/* A photo fills its placeholder, cropped to cover. */
+.photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.spacer {
+  position: absolute;
+  border: 1px dashed rgba(0, 0, 0, 0.25);
+}
+
+/* The caption area: one line of text in the global caption style. Inner padding 14 px (of 1080). */
+.caption {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  padding: 0 1.3cqw;
+}
+
+/* Outline shown only with the grid and spacer guides. */
+.captionGuide {
+  border: 1px dashed #ff7a59;
+}
+
+.captionText {
+  width: 100%;
+  white-space: nowrap;
+}

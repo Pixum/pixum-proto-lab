@@ -1,0 +1,64 @@
+/* Variable fonts supplied by the user: one file per family covers all weights. */
+@font-face {
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('../assets/fonts/Geist_Mono/GeistMono-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+/* Fonts with only a few weights: one @font-face per available weight. */
+@font-face {
+  font-family: 'Ballet';
+  src: url('../assets/fonts/Ballet/Ballet-Regular-VariableFont_opsz.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('../assets/fonts/BircolageGrotesque/BricolageGrotesque-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('../assets/fonts/BircolageGrotesque/BricolageGrotesque-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Charis SIL';
+  src: url('../assets/fonts/Charis_SIL/CharisSIL-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Charis SIL';
+  src: url('../assets/fonts/Charis_SIL/CharisSIL-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('../assets/fonts/Instrument_Serif/InstrumentSerif-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Luckiest Guy';
+  src: url('../assets/fonts/Luckiest_Guy/LuckiestGuy-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}

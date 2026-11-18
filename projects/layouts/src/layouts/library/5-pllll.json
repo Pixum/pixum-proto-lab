@@ -1,0 +1,54 @@
+{
+  "id": "5-pllll",
+  "placeholderCount": 5,
+  "orientations": [
+    "portrait",
+    "landscape",
+    "landscape",
+    "landscape",
+    "landscape"
+  ],
+  "tags": [],
+  "elements": [
+    {
+      "type": "placeholder",
+      "col": 1,
+      "row": 1,
+      "colSpan": 4,
+      "rowSpan": 4,
+      "format": "2:3"
+    },
+    {
+      "type": "placeholder",
+      "col": 5,
+      "row": 1,
+      "colSpan": 8,
+      "rowSpan": 4,
+      "format": "3:2"
+    },
+    {
+      "type": "placeholder",
+      "col": 1,
+      "row": 5,
+      "colSpan": 6,
+      "rowSpan": 3,
+      "format": "3:2"
+    },
+    {
+      "type": "placeholder",
+      "col": 7,
+      "row": 5,
+      "colSpan": 6,
+      "rowSpan": 3,
+      "format": "3:2"
+    },
+    {
+      "type": "placeholder",
+      "col": 1,
+      "row": 8,
+      "colSpan": 12,
+      "rowSpan": 5,
+      "format": "16:9"
+    }
+  ]
+}

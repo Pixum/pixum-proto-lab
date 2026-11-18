@@ -1,0 +1,45 @@
+.book {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  pointer-events: none; /* the canvas is view-only */
+}
+
+.row {
+  display: flex;
+  gap: 32px; /* gap between units: larger than the (zero) gap inside a spread */
+}
+
+.unit {
+  display: flex;
+}
+
+.pageFigure {
+  margin: 0;
+}
+
+.page {
+  position: relative;
+  width: var(--page-width);
+  height: var(--page-height);
+  background: var(--color-page); /* shown only if a page has no layout */
+}
+
+/* Subtle fold line between the two pages of a spread, drawn on top of the layout. */
+.unit > .pageFigure + .pageFigure .page::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+}
+
+/* Page numbers stay readable at any zoom: counter-scale against the book's scale. */
+.number {
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: calc(11px / var(--scale, 1));
+  color: var(--color-text-muted);
+  text-align: center;
+}
