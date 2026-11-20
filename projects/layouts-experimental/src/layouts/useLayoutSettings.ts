@@ -1,3 +1,4 @@
+import { useDeferredValue, useMemo } from 'react'
 import { useVariables } from '../variables/store'
 import type { GridSettings } from './geometry'
 
@@ -10,5 +11,8 @@ export function useLayoutSettings(): LayoutSettings {
   const paddingY = useVariables((s) => s.values.paddingY as number)
   const radius = useVariables((s) => s.values.radius as number)
   const background = useVariables((s) => s.values.background as string)
-  return { gap, paddingX, paddingY, radius, background }
+  const settings = useMemo(() => ({ gap, paddingX, paddingY, radius, background }), [gap, paddingX, paddingY, radius, background])
+  // Deferred: the sidebar follows the pointer at once, the pages catch up in a background render
+  // (and skip values that were already replaced), so a slow canvas never blocks the slider.
+  return useDeferredValue(settings)
 }

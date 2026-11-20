@@ -18,6 +18,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
   padding: var(--space-3) var(--space-4);
   border-bottom: 1px solid var(--color-border);
 }
@@ -26,6 +27,13 @@
   margin: 0;
   font-size: 13px;
   font-weight: 500;
+}
+
+.description {
+  margin: var(--space-1) 0 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--color-text-muted);
 }
 
 .reset {
@@ -97,6 +105,7 @@
 
 .chevron {
   display: inline-block;
+  margin-left: auto;
   color: var(--color-text-muted);
   transition: transform 150ms ease;
 }

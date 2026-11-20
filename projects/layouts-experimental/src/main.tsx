@@ -4,9 +4,12 @@ import './styles/fonts.css'
 import './styles/tokens.css'
 import './styles/global.css'
 import App from './App'
+import { photosReady } from './book/photos'
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+photosReady.then(() =>
+  createRoot(document.getElementById('root')!).render(
+    <StrictMode>
+      <App />
+    </StrictMode>,
+  ),
 )

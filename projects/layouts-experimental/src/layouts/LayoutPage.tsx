@@ -1,4 +1,4 @@
-import { blockRect, GRID_COLUMNS, PAGE, rowCount } from './geometry'
+import { blockRect, CAPTION_ROWS, GRID_COLUMNS, gridLines, PAGE, rowCount } from './geometry'
 import { useLayoutSettings } from './useLayoutSettings'
 import { useTextStyle } from './useTextStyle'
 import type { LayoutDef } from './types'
@@ -16,7 +16,7 @@ function percentStyle(rect: { left: number; top: number; width: number; height: 
 
 type Props = {
   layout: LayoutDef
-  caption?: boolean // adds the caption row (grid grows to 13 rows)
+  caption?: boolean // adds the caption rows (grid grows to 26 rows)
   guides?: boolean // shows the grid cells and the spacers
   labels?: boolean // writes format and size into each placeholder
   photos?: string[] // photo URLs, one per placeholder in reading order; without them placeholders stay pink
@@ -28,6 +28,7 @@ export default function LayoutPage({ layout, caption = false, guides = false, la
   const settings = useLayoutSettings()
   const captionStyle = useTextStyle('caption')
   const rows = rowCount(caption)
+  const lines = gridLines(settings, rows)
   // The radius is in px on the 1080 px reference page; 1cqw is 1 % of the page's own width.
   const radius = `${(settings.radius / PAGE.width) * 100}cqw`
   // The photos follow the reading order of the placeholders: top to bottom, then left to right.
@@ -40,16 +41,17 @@ export default function LayoutPage({ layout, caption = false, guides = false, la
 
   return (
     <div className={styles.page} style={{ background: settings.background }}>
-      {guides &&
-        Array.from({ length: rows * GRID_COLUMNS }, (_, i) => (
-          <div
-            key={i}
-            className={styles.cell}
-            style={percentStyle(
-              blockRect({ col: (i % GRID_COLUMNS) + 1, row: Math.floor(i / GRID_COLUMNS) + 1, colSpan: 1, rowSpan: 1 }, settings, rows),
-            )}
+      {guides && (
+        // One element with one path for all guide lines (about 94 divs before): much cheaper to update while sliding.
+        <svg className={styles.guideLines} viewBox={`0 0 ${PAGE.width} ${PAGE.height}`} preserveAspectRatio="none" aria-hidden="true">
+          <path
+            d={
+              lines.x.map((x) => `M${x} ${settings.paddingY}V${PAGE.height - settings.paddingY}`).join('') +
+              lines.y.map((y) => `M${settings.paddingX} ${y}H${PAGE.width - settings.paddingX}`).join('')
+            }
           />
-        ))}
+        </svg>
+      )}
 
       {layout.elements.map((el, i) => {
         const style = percentStyle(blockRect(el, settings, rows))
@@ -71,7 +73,7 @@ export default function LayoutPage({ layout, caption = false, guides = false, la
       {caption && (
         <div
           className={`${styles.caption} ${guides ? styles.captionGuide : ''}`}
-          style={percentStyle(blockRect({ col: 1, row: rows, colSpan: GRID_COLUMNS, rowSpan: 1 }, settings, rows))}
+          style={percentStyle(blockRect({ col: 1, row: rows - CAPTION_ROWS + 1, colSpan: GRID_COLUMNS, rowSpan: CAPTION_ROWS }, settings, rows))}
         >
           <span className={styles.captionText} style={captionStyle}>
             Caption

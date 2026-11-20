@@ -15,7 +15,7 @@ export default function OverviewToggle({ open, onToggle }: { open: boolean; onTo
           <path d="M11 6H1M5 2L1 6l4 4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       )}
-      {open ? 'Back' : 'Layouts'}
+      {open ? 'Back' : 'Check layoutgrids'}
     </button>
   )
 }

@@ -23,6 +23,7 @@
   width: var(--page-width);
   height: var(--page-height);
   background: var(--color-page); /* shown only if a page has no layout */
+  contain: layout paint; /* a change inside one page cannot trigger layout or paint of the others */
 }
 
 /* Subtle fold line between the two pages of a spread, drawn on top of the layout. */

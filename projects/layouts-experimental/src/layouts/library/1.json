@@ -10,8 +10,8 @@
       "type": "placeholder",
       "col": 1,
       "row": 1,
-      "colSpan": 12,
-      "rowSpan": 12
+      "colSpan": 24,
+      "rowSpan": 24
     }
   ]
 }

@@ -8,6 +8,16 @@
   overflow: hidden;
 }
 
+.credit {
+  position: absolute;
+  left: var(--canvas-margin, 32px);
+  bottom: var(--canvas-margin, 32px);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
 /* Free area for the book: the canvas minus the floating sidebar, with an outer margin. */
 .stage {
   position: absolute;

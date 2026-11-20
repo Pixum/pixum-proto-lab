@@ -6,10 +6,21 @@
   container-type: inline-size; /* lets the corner radius use cqw (page-relative) units */
 }
 
-.cell {
+/* Grid guides: hairlines at the edges of every cell, all in one path (1 screen pixel wide at any page size). */
+.guideLines {
   position: absolute;
-  border: 1px solid rgba(0, 0, 0, 0.07);
+  inset: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
+}
+
+.guideLines path {
+  fill: none;
+  stroke: rgba(0, 0, 0, 0.1);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+  shape-rendering: crispEdges;
 }
 
 .placeholder {

@@ -16,7 +16,7 @@ All px values are measured on the 1080 × 1440 px reference page (see `LAYOUT_SP
 
 **Page padding:** one control with a link button. The default state is **linked** at 86 px on all sides, so it shows one slider, "All sides"; moving it changes both values. Unlinking keeps the values and shows two sliders (horizontal and vertical), each with a value field, like the Gap. Linking sets both values to the horizontal value. The grid shapes depend on gap and padding, and the layouts are drawn for these defaults (see "Known limit" in `LAYOUT_SPECIFICATIONS.md`).
 
-The ranges are chosen so every combination fits: at the maximum gap (60 px) and the maximum padding (210 px) all 61 layouts stay inside the page, with and without the caption. Above 210 px of padding the 12 columns would no longer fit next to a 60 px gap.
+The ranges are chosen so every combination fits: at the maximum gap (60 px) and the maximum padding (210 px) all 95 layouts stay inside the page, with and without the caption. Above 210 px of padding the grid would no longer fit next to a 60 px gap. The grid is 24 × 24; block sizes are computed from the grid step (cell plus gap), so a block never gets negative, and the layouts for 6 to 9 placeholders only use blocks of at least 3 columns × 2 rows. At the extremes the smallest old blocks (one old cell, now 2 × 2 fine cells) shrink to 0 px, as they did on the 12-column grid.
 
 ## Background (implemented)
 | Variable | Control | Default |

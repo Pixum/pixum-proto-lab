@@ -6,8 +6,14 @@ import OverviewToggle from './overview/OverviewToggle'
 import Sidebar from './sidebar/Sidebar'
 import { useCssVariables } from './variables/useCssVariables'
 
-export default function App() {
+// Publishes the variables as CSS properties. Its own component, so a slider change re-renders only this
+// (it renders nothing) and not the whole app.
+function CssVariables() {
   useCssVariables()
+  return null
+}
+
+export default function App() {
   const [overviewOpen, setOverviewOpen] = useState(false)
 
   // Escape closes the overview.
@@ -20,6 +26,7 @@ export default function App() {
 
   return (
     <main className="app">
+      <CssVariables />
       <Canvas>
         <Book />
       </Canvas>

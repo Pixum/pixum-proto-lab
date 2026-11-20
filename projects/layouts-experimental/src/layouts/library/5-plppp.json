@@ -14,40 +14,40 @@
       "type": "placeholder",
       "col": 1,
       "row": 1,
-      "colSpan": 4,
-      "rowSpan": 4,
+      "colSpan": 8,
+      "rowSpan": 8,
       "format": "2:3"
     },
     {
       "type": "placeholder",
-      "col": 5,
+      "col": 9,
       "row": 1,
-      "colSpan": 8,
-      "rowSpan": 4,
+      "colSpan": 16,
+      "rowSpan": 8,
       "format": "3:2"
     },
     {
       "type": "placeholder",
       "col": 1,
-      "row": 5,
-      "colSpan": 8,
-      "rowSpan": 8,
+      "row": 9,
+      "colSpan": 16,
+      "rowSpan": 16,
       "format": "3:4"
     },
     {
       "type": "placeholder",
-      "col": 9,
-      "row": 5,
-      "colSpan": 4,
-      "rowSpan": 4,
+      "col": 17,
+      "row": 9,
+      "colSpan": 8,
+      "rowSpan": 8,
       "format": "2:3"
     },
     {
       "type": "placeholder",
-      "col": 9,
-      "row": 9,
-      "colSpan": 4,
-      "rowSpan": 4,
+      "col": 17,
+      "row": 17,
+      "colSpan": 8,
+      "rowSpan": 8,
       "format": "2:3"
     }
   ]

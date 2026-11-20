@@ -33,7 +33,7 @@ export default function LayoutOverview() {
         <div className={styles.toggles}>
           <label className={styles.toggle}>
             <input type="checkbox" checked={caption} onChange={(e) => setCaption(e.target.checked)} />
-            Caption (grid grows to 13 rows)
+            Caption (grid grows to 26 rows)
           </label>
           <label className={styles.toggle}>
             <input type="checkbox" checked={guides} onChange={(e) => setGuides(e.target.checked)} />

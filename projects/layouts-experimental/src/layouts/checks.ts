@@ -19,8 +19,8 @@ export type LayoutReport = {
   placeholders: { format?: Format; ratio: number; deviation?: number; withinTolerance: boolean }[]
   edges: { top: boolean; bottom: boolean; left: boolean; right: boolean }
   readingOrder?: { sequence: string; expected: string; matches: boolean }
-  spacerShare: number // share of the 12 × 12 grid left to spacers, 0 to 1
-  // Every cell of the 12 × 12 grid must belong to exactly one block.
+  spacerShare: number // share of the 24 × 24 grid left to spacers, 0 to 1
+  // Every cell of the 24 × 24 grid must belong to exactly one block.
   structure: { outOfBounds: number; overlappingCells: number; emptyCells: number }
 }
 
@@ -50,7 +50,8 @@ export function checkLayout(layout: LayoutDef, settings: GridSettings, rows: num
   const ordered = placeholders
     .filter((p) => p.type === 'placeholder' && p.format)
     .sort((a, b) => a.row - b.row || a.col - b.col)
-  if (ordered.length > 1) {
+  // Only for sequence ids (3-ppl); the mix ids from 6 placeholders (6-3p3l) have no fixed order.
+  if (ordered.length > 1 && /^[pl]+$/.test(layout.id.split('-')[1] ?? '')) {
     const sequence = ordered
       .map((p) => (p.type === 'placeholder' && p.format && PORTRAIT_FORMATS.includes(p.format) ? 'p' : 'l'))
       .join('')

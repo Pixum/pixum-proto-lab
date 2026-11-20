@@ -10,6 +10,7 @@ export default function Canvas({ children }: { children: ReactNode }) {
   return (
     <div className={styles.canvas}>
       <FitToView maxWidth={BOOK_MAX_WIDTH}>{children}</FitToView>
+      <span className={styles.credit}>made by Yevgen Pavlin</span>
     </div>
   )
 }

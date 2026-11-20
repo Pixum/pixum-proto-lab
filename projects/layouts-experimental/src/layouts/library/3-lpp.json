@@ -12,24 +12,24 @@
       "type": "placeholder",
       "col": 1,
       "row": 1,
-      "colSpan": 12,
-      "rowSpan": 5,
+      "colSpan": 24,
+      "rowSpan": 10,
       "format": "16:9"
     },
     {
       "type": "placeholder",
       "col": 1,
-      "row": 6,
-      "colSpan": 6,
-      "rowSpan": 7,
+      "row": 11,
+      "colSpan": 12,
+      "rowSpan": 14,
       "format": "9:16"
     },
     {
       "type": "placeholder",
-      "col": 7,
-      "row": 6,
-      "colSpan": 6,
-      "rowSpan": 7,
+      "col": 13,
+      "row": 11,
+      "colSpan": 12,
+      "rowSpan": 14,
       "format": "9:16"
     }
   ]

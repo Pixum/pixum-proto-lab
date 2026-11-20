@@ -12,10 +12,10 @@ export default function Group({ title, children }: { title: string; children: Re
         aria-expanded={open}
         onClick={() => setOpen(!open)}
       >
+        {title}
         <span className={styles.chevron} data-open={open}>
           ›
         </span>
-        {title}
       </button>
       {open && <div className={styles.groupBody}>{children}</div>}
     </section>

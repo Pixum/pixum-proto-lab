@@ -11,23 +11,23 @@
       "type": "placeholder",
       "col": 1,
       "row": 1,
-      "colSpan": 5,
-      "rowSpan": 6,
+      "colSpan": 10,
+      "rowSpan": 12,
       "format": "9:16"
     },
     {
       "type": "spacer",
-      "col": 6,
+      "col": 11,
       "row": 1,
-      "colSpan": 7,
-      "rowSpan": 6
+      "colSpan": 14,
+      "rowSpan": 12
     },
     {
       "type": "placeholder",
       "col": 1,
-      "row": 7,
-      "colSpan": 12,
-      "rowSpan": 6,
+      "row": 13,
+      "colSpan": 24,
+      "rowSpan": 12,
       "format": "3:2"
     }
   ]

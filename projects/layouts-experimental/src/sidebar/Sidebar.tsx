@@ -17,7 +17,12 @@ export default function Sidebar() {
   return (
     <aside className={styles.sidebar}>
       <header className={styles.header}>
-        <h1 className={styles.title}>Layouts</h1>
+        <div>
+          <h1 className={styles.title}>Experimental Layouts</h1>
+          <p className={styles.description}>
+            A playground for seeing how global design variables reshape every page of a book in real time.
+          </p>
+        </div>
         <button className={styles.reset} type="button" onClick={reset}>
           Reset
         </button>

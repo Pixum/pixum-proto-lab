@@ -1,4 +1,4 @@
-CLAUDE.md — Layouts Prototype
+i onlyCLAUDE.md — Layouts Prototype
 1. Project Overview
 Project name: Layouts Prototype
 Purpose:Create an experimental, browser-based layout playground for experimenting with book layouts through global design variables.
