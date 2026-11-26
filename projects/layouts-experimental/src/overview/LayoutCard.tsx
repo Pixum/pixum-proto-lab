@@ -8,12 +8,12 @@ import styles from './LayoutOverview.module.css'
 const title = (l: LayoutDef) =>
   l.orientations[0] === 'any' ? 'portrait or landscape' : l.orientations.join(' + ')
 
-type Props = { layout: LayoutDef; caption: boolean; guides: boolean }
+type Props = { layout: LayoutDef; headline: boolean; caption: boolean; guides: boolean }
 
 // One layout on a page, with its rule checks underneath. Reacts to the global variables. View only.
-export default function LayoutCard({ layout, caption, guides }: Props) {
+export default function LayoutCard({ layout, headline, caption, guides }: Props) {
   const settings = useLayoutSettings()
-  const report = checkLayout(layout, settings, rowCount(caption))
+  const report = checkLayout(layout, settings, rowCount(caption, headline))
   const edgesOk = Object.values(report.edges).every(Boolean)
   const { outOfBounds, overlappingCells, emptyCells } = report.structure
   const structureOk = outOfBounds + overlappingCells + emptyCells === 0
@@ -25,7 +25,7 @@ export default function LayoutCard({ layout, caption, guides }: Props) {
         <span className={styles.cardId}>{layout.id}</span>
       </figcaption>
 
-      <LayoutPage layout={layout} caption={caption} guides={guides} labels />
+      <LayoutPage layout={layout} headline={headline} caption={caption} guides={guides} labels />
 
       <div className={styles.checks}>
         {report.placeholders.map((p, i) => (

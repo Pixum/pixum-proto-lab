@@ -1,9 +1,18 @@
 import type { ReactNode } from 'react'
-import { FONT_FAMILIES, FONT_WEIGHTS, TEXT_STYLE_RANGES, type TextAlign, type TextStyleDef } from '../../variables/schema'
+import { FONT_FAMILIES, FONT_WEIGHTS, TEXT_STYLE_RANGES, type TextAlign, type TextStyleDef, type VAlign } from '../../variables/schema'
 import { useVariables } from '../../variables/store'
 import HexField from './HexField'
 import IconNumberField from './IconNumberField'
-import { AlignCenterIcon, AlignLeftIcon, AlignRightIcon, LetterSpacingIcon, LineHeightIcon } from './TextStyleIcons'
+import {
+  AlignBottomIcon,
+  AlignCenterIcon,
+  AlignLeftIcon,
+  AlignMiddleIcon,
+  AlignRightIcon,
+  AlignTopIcon,
+  LetterSpacingIcon,
+  LineHeightIcon,
+} from './TextStyleIcons'
 import styles from './Controls.module.css'
 
 const WEIGHTS: [number, string][] = [
@@ -22,6 +31,12 @@ const ALIGNMENTS: { value: TextAlign; label: string; icon: ReactNode }[] = [
   { value: 'left', label: 'Align left', icon: <AlignLeftIcon /> },
   { value: 'center', label: 'Align center', icon: <AlignCenterIcon /> },
   { value: 'right', label: 'Align right', icon: <AlignRightIcon /> },
+]
+
+const V_ALIGNMENTS: { value: VAlign; label: string; icon: ReactNode }[] = [
+  { value: 'top', label: 'Align top', icon: <AlignTopIcon /> },
+  { value: 'middle', label: 'Align middle', icon: <AlignMiddleIcon /> },
+  { value: 'bottom', label: 'Align bottom', icon: <AlignBottomIcon /> },
 ]
 
 // One of the seven values behind a text style, e.g. captionSize.
@@ -43,6 +58,7 @@ export default function TextStyleControl({ def }: { def: TextStyleDef }) {
   const lineHeight = useStyleValue<number>(p, 'LineHeight')
   const letterSpacing = useStyleValue<number>(p, 'LetterSpacing')
   const align = useStyleValue<TextAlign>(p, 'Align')
+  const valign = useStyleValue<VAlign>(p, 'VAlign') // undefined for styles without vertical alignment
 
   // Only the weights the chosen font has. A font change keeps the weight if it exists, otherwise takes the nearest one.
   const weights = FONT_WEIGHTS[font] ?? FONT_WEIGHTS.Inter
@@ -122,6 +138,26 @@ export default function TextStyleControl({ def }: { def: TextStyleDef }) {
           ))}
         </div>
       </div>
+
+      {def.default.valign && (
+        <div className={styles.labelled}>
+          <span className={styles.label}>Vertical alignment</span>
+          <div className={styles.segmented} role="group" aria-label="Vertical alignment">
+            {V_ALIGNMENTS.map((a) => (
+              <button
+                key={a.value}
+                type="button"
+                className={styles.segment}
+                aria-pressed={valign === a.value}
+                aria-label={a.label}
+                onClick={() => set('VAlign')(a.value)}
+              >
+                {a.icon}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className={styles.row}>
         <span className={styles.label}>Color</span>

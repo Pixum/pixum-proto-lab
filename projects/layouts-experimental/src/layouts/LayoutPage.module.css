@@ -58,8 +58,43 @@
   padding: 0 1.3cqw;
 }
 
-/* Outline shown only with the grid and spacer guides. */
-.captionGuide {
+/* The headline area at the top: the text wraps and may overflow the area (not clipped). */
+.headline {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  padding: 0 1.3cqw;
+}
+
+.headlineText {
+  width: 100%;
+}
+
+/* A clipart: placed and tilted inline, on top of photos and text, never clickable. */
+.clipart {
+  position: absolute;
+  height: auto;
+  pointer-events: none;
+}
+
+/* A body text block replaces a placeholder or spacer: wraps, clipped to the block, vertical position set inline. */
+.body {
+  position: absolute;
+  display: flex;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* The line count is set inline (-webkit-line-clamp), so the last line that fits ends with an ellipsis. */
+.bodyText {
+  width: 100%;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Outline of the headline, caption and body areas, shown only with the grid and spacer guides. */
+.textGuide {
   border: 1px dashed #ff7a59;
 }
 

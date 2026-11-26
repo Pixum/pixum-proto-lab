@@ -1,6 +1,6 @@
 # Layout Specifications
 
-Book structure and layout rules. Status: the 95-layout library, the layout renderer, the rule checks, the layout overview and the page assignment are implemented. Headline and Body text are not (see "Open items"). Items marked **TBD** are not decided.
+Book structure and layout rules. Status: the 95-layout library, the layout renderer, the rule checks, the layout overview and the page assignment are implemented. The headline, caption and body text are implemented (see "Open items"). Items marked **TBD** are not decided.
 
 Reference: Figma file "Page Layouts" (`SVTJgs9ML1EKRGoOC2AXXK`, node `4167:3070`, "Layout examples").
 
@@ -94,7 +94,7 @@ Measured block shapes on a 1080 × 1440 page at the defaults (86 px page padding
 - All 95 are viewable in the app: the **Layouts** button in the top-left corner of the canvas opens an overview, grouped by number of placeholders, with the rule checks per layout.
 - **Renderer:** `src/layouts/LayoutPage.tsx` draws one layout with the global variables (gap, page padding, corner radius, background color). The book pages and the overview both use it, so both react to the sidebar.
 - **Checks** (`src/layouts/checks.ts`): format tolerance, edge rule, reading order, spacer share, and grid structure (no overlapping blocks, nothing outside the grid, every cell used exactly once).
-- **Pages:** each of the 10 book pages gets a layout from `src/book/assignments.ts`, in a random order (shuffled once and fixed in code): page 1 `2-pp`, 2 `4-llpl`, 3 `5-pllpl`, 4 `3-pll`, 5 `1`, 6 `5-lplpl`, 7 `3-lpl`, 8 `2-ll`, 9 `4-pppl`, 10 `5-lllll`. Two different layouts for each of 2, 3, 4 and 5 placeholders, one single-placeholder page and a third 5-placeholder layout. All of these pass the 5 % format check. The captions on pages 5 and 7 are a demo setting.
+- **Pages:** each of the 10 book pages gets a layout from `src/book/assignments.ts`, in a random order (shuffled once and fixed in code): page 1 `2-pp`, 2 `4-llpl`, 3 `5-pllpl`, 4 `3-pll`, 5 `1`, 6 `5-lplpl`, 7 `3-lpl`, 8 `2-ll`, 9 `4-pppl`, 10 `5-lllll`. Two different layouts for each of 2, 3, 4 and 5 placeholders, one single-placeholder page and a third 5-placeholder layout. All of these pass the 5 % format check. Demo settings (not design decisions): captions on pages 5 and 6, headlines on pages 2 and 8, body text on page 7 (the spacer) and page 10 (the bottom right photo).
 
 ### JSON format (as used by the files)
 ```json
@@ -120,11 +120,23 @@ Both are computed by the renderer. They do not need extra JSON files and work wi
 - **Accepted consequence:** with a caption, every placeholder becomes about 5 % to 8 % wider and shorter than its target format. The 5 % tolerance applies to the layout without a caption.
 - Considered and rejected: placing the caption in the lowest free area of each layout (keeps exact shapes, but needs a free area at the bottom in every layout and forced a smaller single portrait).
 
-**Text replaces a placeholder:** any placeholder can become a text area of exactly the same block. It contains the headline on top and the body text below, with a small inner padding (14 px in Figma).
+**Body text replaces a block (decided, implemented):** any placeholder **or spacer** can become a body text block of exactly the same grid block (no extra rows). Inner padding 14 px. The text uses the global Body style and is placed top, middle or bottom in the block by the Body vertical alignment. It is **clipped and truncated**: only the lines that fit are shown and the last one ends with an ellipsis; the line count is calculated from the block height, the font size and the line height. A replaced placeholder shows no photo, and the other placeholders keep their photos. The text is a short sample story for now. Set per page in `src/book/assignments.ts` with `bodyBlocks`, the 0-based indexes in the layout's `elements` list. Used on pages 7 and 10; the overview does not show it.
 
 **Every layout has the option of a caption** (on or off).
 
+**Headline area (decided):** works like the caption but at the top. When on, the grid grows by **2 rows** (26 rows, or 28 with a caption) and the layout starts below the headline; the layout JSON files do not change. The headline spans the full width, shows the dummy text "Time for a trip" in the global Headline style, can wrap, and is not clipped: text taller than the area spills out of it (centered vertically). At the defaults the two rows are about 66 px high (59 px when the page has a caption too: the gap is subtracted from the two rows), against about 61 px for one 64 px headline line, so a headline plus caption page is just too tight. Demo setting: pages 2 and 8 have a headline (`headline: true` in `src/book/assignments.ts`); the overview has a Headline checkbox.
+
 **Caption content (decided):** one line of caption-style text, as in the Figma example. The caption has no headline or body.
+
+## Cliparts (decided, implemented)
+Files: `src/assets/cliparts` (8 SVG and 6 AVIF xmas stamps). Switched by the Cliparts dropdown (see `VARIABLE_SYSTEM.md`).
+- **At most one clipart per page**, set once per page in `src/book/assignments.ts` (`clipart: { file, block, from }`). `file` is a fragment of the file name, `block` the index in the layout's `elements`. `from: 'few'` pages show in A few and A lot, `from: 'lot'` pages only in A lot.
+- **In a spacer:** centered in the block. **On a placeholder:** the clipart's center sits on the block's **outer corner** (the corner farthest from the page center), so half hangs over the edge.
+- **Size:** 15 % of the page width, height from the file's proportions. **Tilt:** 10°, leaning away from the center (left corners counter-clockwise, right corners clockwise; in a spacer, away from the page center).
+- **A clipart can not leave its page** (each single page, not the spread): the whole tilted image stays inside the page. If the normal position would reach past an edge, the clipart moves inward by the smallest amount that keeps it inside; size and tilt do not change. So a clipart near an edge no longer has its center exactly on the corner.
+- A clipart sits on top of photos and text and is not clickable. The overview shows none.
+- **Pages (first proposal):** 1 coffee in the spacer bottom left; 2 cactus (few); 3 starfish; 4 plane in the spacer; 5 "live in the moment" (few); 6 lemon; 7 June; 8 stamp 9 (few); 9 September; 10 stamp 22. Four stamp files (1, 14, 23, 24) are not used.
+- **Known limits:** the handwritten lettering is small at 15 % wide; black cliparts disappear on a dark background.
 
 ## Layout selection
 Layouts are assigned to pages **in code or config** for now. No sidebar selection yet. Automatic selection from uploaded images is out of scope, but the layout metadata keeps it possible.
@@ -134,4 +146,4 @@ Layouts are assigned to pages **in code or config** for now. No sidebar selectio
 - Review the layouts with a high spacer share: `2-lp`, `2-pl`, `2-pp` (27 % to 29 %), `4-pllp` (19 %), `3-plp` and `4-lllp` (17 %), `3-lpl` and `3-ppp` (15 %). At the defaults two photos or several portraits cannot fill a page cleanly.
 - Layout assignment for the 10 pages is a first proposal; the designer reviews and changes it.
 - **Photos in the book:** the 31 photos in `src/assets/photos` (17 landscape, 14 portrait) fill the book only; the overview stays pink. `src/book/photos.ts` gives each placeholder, in reading order, the next photo of its orientation, in file-name order. The book has 34 placeholders (21 landscape, 12 portrait, 1 free-format that takes a portrait), so 4 landscape photos appear twice, at the end of the book. Portrait photos are listed by number in `photos.ts`; a new portrait photo needs its number added there. Photos are 1024 px wide and soft when zoomed far in.
-- Text: the Caption style (font, size, weight, color, line height, letter spacing, alignment) is implemented. Headline, Body and turning a placeholder into a text area are not implemented yet.
+- Text: the Headline and Caption areas are implemented with their styles (font, size, weight, color, line height, letter spacing, alignment). Body text is implemented (`bodyBlocks`), used on pages 7 and 10; the overview has no option for it.

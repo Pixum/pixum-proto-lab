@@ -34,6 +34,7 @@ export type VariableDef = Base &
 // Ids are prefixed with `prefix`: <prefix>Font, Size, Weight, Color, LineHeight, LetterSpacing, Align.
 // Sizes are px on the 1080 px reference page.
 export type TextAlign = 'left' | 'center' | 'right'
+export type VAlign = 'top' | 'middle' | 'bottom'
 export type TextStyleDef = Base & {
   type: 'textStyle'
   prefix: string
@@ -45,6 +46,7 @@ export type TextStyleDef = Base & {
     lineHeight: number // times the font size
     letterSpacing: number // px
     align: TextAlign
+    valign?: VAlign // only for styles in a box with room to spare (Body): adds <prefix>VAlign
   }
 }
 
@@ -71,6 +73,8 @@ export const TEXT_STYLE_RANGES = {
 }
 
 export const variableSchema: AnyVariableDef[] = [
+  // How many pages show their clipart (see docs/LAYOUT_SPECIFICATIONS.md, "Cliparts"). First, so its group is on top of the sidebar.
+  { id: 'cliparts', label: 'Cliparts', group: 'Cliparts', type: 'select', default: 'None', options: ['None', 'A few', 'A lot'] },
   // Gap between placeholders; also the gutter of the 12 × 12 grid.
   { id: 'gap', label: 'Gap', group: 'Layout', type: 'slider', default: 34, min: 0, max: 60, step: 1, unit: 'px' },
   // Maximum 210 px: with the maximum gap (60 px) the 12 columns still fit inside the page.
@@ -107,7 +111,7 @@ export const variableSchema: AnyVariableDef[] = [
     group: 'Body',
     type: 'textStyle',
     prefix: 'body',
-    default: { font: 'Inter', size: 21, weight: 400, color: '#111111', lineHeight: 1.5, letterSpacing: 0, align: 'left' },
+    default: { font: 'Inter', size: 21, weight: 400, color: '#111111', lineHeight: 1.5, letterSpacing: 0, align: 'left', valign: 'middle' },
   },
     {
     id: 'caption',
@@ -138,6 +142,7 @@ export function variableKeys(def: AnyVariableDef): { key: string; default: Varia
       { key: `${p}LineHeight`, default: def.default.lineHeight },
       { key: `${p}LetterSpacing`, default: def.default.letterSpacing, unit: 'px' },
       { key: `${p}Align`, default: def.default.align },
+      ...(def.default.valign ? [{ key: `${p}VAlign`, default: def.default.valign }] : []),
     ]
   }
   return [{ key: def.id, default: def.default, unit: 'unit' in def ? def.unit : undefined }]

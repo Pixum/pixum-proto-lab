@@ -1,12 +1,15 @@
 import LayoutPage from '../layouts/LayoutPage'
 import { layoutsById } from '../layouts/library'
+import { useVariables } from '../variables/store'
 import { pageAssignments } from './assignments'
+import { clipartUrl } from './cliparts'
 import { bookPhotos } from './photos'
 import { PAGE_CM, PX_PER_CM, bookRows } from './structure'
 import styles from './Book.module.css'
 
 // The book: every page draws its assigned layout with the global variables.
 export default function Book() {
+  const cliparts = useVariables((s) => s.values.cliparts)
   return (
     <div
       className={styles.book}
@@ -22,10 +25,13 @@ export default function Book() {
               {unit.pages.map((n) => {
                 const assignment = pageAssignments[n]
                 const layout = assignment && layoutsById[assignment.layout]
+                const pageClipart = assignment?.clipart
+                const showClipart = cliparts === 'A lot' || (cliparts === 'A few' && pageClipart?.from === 'few')
+                const src = showClipart && pageClipart ? clipartUrl(pageClipart.file) : undefined
                 return (
                   <figure className={styles.pageFigure} key={n}>
                     <div className={styles.page}>
-                      {layout && <LayoutPage layout={layout} caption={assignment.caption} photos={bookPhotos[n]} />}
+                      {layout && <LayoutPage layout={layout} headline={assignment.headline} caption={assignment.caption} bodyBlocks={assignment.bodyBlocks} clipart={src && pageClipart ? { src, block: pageClipart.block } : undefined} photos={bookPhotos[n]} />}
                     </div>
                     <figcaption className={styles.number}>{n}</figcaption>
                   </figure>

@@ -25,8 +25,15 @@ The ranges are chosen so every combination fits: at the maximum gap (60 px) and 
 
 **Contrast (text stays readable):** when the background color changes, every text color (Headline, Body, Caption) is checked against it. A color below WCAG AA contrast, **4.5:1** for all three styles, is **overwritten** in the sidebar with the nearest accessible shade: same hue and saturation, only the lightness moves, by the smallest amount that reaches 4.5:1. Colors that already pass stay as they are. The helper is `src/variables/contrast.ts`; the check runs in `setValue` of the store (`src/variables/store.ts`). Limits: the original text colors are not remembered, so going from a dark background back to white leaves a mid-gray text color (use Reset for the defaults); a low-contrast text color picked by hand is not corrected; text over photos is not checked.
 
+## Cliparts (implemented)
+| Variable | Control | Options | Default |
+|---|---|---|---|
+| Cliparts | dropdown | None, A few, A lot | None |
+
+None hides all cliparts. A few shows them on about every third page (pages 2, 5 and 8), A lot on every page. The size (15 % of the page width) and the tilt (10°) are fixed, not variables. See `LAYOUT_SPECIFICATIONS.md`, "Cliparts".
+
 ## Typography
-Three independent global text styles: **Headline**, **Body**, **Caption**. All three use the same properties (defined in `src/variables/schema.ts`). They are stored and saved, but the pages have no headline or body text yet.
+Three independent global text styles: **Headline**, **Body**, **Caption**. All three use the same properties (defined in `src/variables/schema.ts`). They are stored and saved, The Headline and Caption styles are shown on pages that have a headline or caption area; body text appears in blocks that replace a placeholder or spacer (see `LAYOUT_SPECIFICATIONS.md`). The vertical alignment (stored as `bodyVAlign`) says where the body text sits inside its block; Headline and Caption have no such setting.
 
 Each style has these properties:
 
@@ -38,6 +45,7 @@ Each style has these properties:
 | Line height | number field with icon | 0.8–2.4 (times the size) |
 | Letter spacing | number field with icon | −2 to 10 px |
 | Alignment | three buttons (left, center, right) | left, center, right |
+| Vertical alignment (**Body only**) | three buttons (top, middle, bottom) | top, middle, bottom |
 | Color | hex field + swatch | any |
 
 Defaults:
@@ -45,12 +53,12 @@ Defaults:
 | Style | Font | Weight | Size | Line height | Letter spacing | Alignment | Color |
 |---|---|---|---|---|---|---|---|
 | Headline | Inter | ExtraBold (800) | 64 px | 0.95 | −0.4 px | left | `#111111` |
-| Body | Inter | Regular (400) | 21 px | 1.5 | 0 px | left | `#111111` |
+| Body | Inter | Regular (400) | 21 px | 1.5 | 0 px | left | `#111111` (vertical alignment: middle) |
 | Caption | Inter | Regular (400) | 16 px | 1.4 | 0 px | center | `#262626` |
 
 The sidebar control follows the Typography panel in Figma: font on top, weight and size side by side, line height and letter spacing as icon fields, alignment as a button group, and the color row underneath. Vertical alignment (top, middle, bottom) is not included because the spec does not define it.
 
-Sizes are px on the 1080 px reference page, so text scales with the page like every other variable. The caption area is one line with a 14 px inner padding; the caption text is a dummy word for now.
+Sizes are px on the 1080 px reference page, so text scales with the page like every other variable. The caption area is one line with a 14 px inner padding; the caption text is a dummy sentence for now ("Our family trip in Bad Münstereifel").
 
 ## Not variables
 - Placeholder color (light pink): a fixed preview style, not a variable. Placeholders are replaced by photos later.

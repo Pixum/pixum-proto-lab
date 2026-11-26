@@ -16,3 +16,6 @@ export const LetterSpacingIcon = () => <Icon d={`M2.5 3v10M13.5 3v10${A}`} />
 export const AlignLeftIcon = () => <Icon d="M2 3.5h12M2 6.5h7M2 9.5h12M2 12.5h7" />
 export const AlignCenterIcon = () => <Icon d="M2 3.5h12M4.5 6.5h7M2 9.5h12M4.5 12.5h7" />
 export const AlignRightIcon = () => <Icon d="M2 3.5h12M7 6.5h7M2 9.5h12M7 12.5h7" />
+export const AlignTopIcon = () => <Icon d="M2.5 2.5h11M6 6h4v7.5H6z" />
+export const AlignMiddleIcon = () => <Icon d="M2.5 8h11M6 3.5h4v9H6z" />
+export const AlignBottomIcon = () => <Icon d="M2.5 13.5h11M6 2.5h4V10H6z" />

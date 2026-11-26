@@ -9,7 +9,10 @@ export const IMAGE_ROWS = 24
 
 // With a caption the grid grows by two rows; the caption takes the last two (the height of one row of the old 12-row grid).
 export const CAPTION_ROWS = 2
-export const rowCount = (caption: boolean) => (caption ? IMAGE_ROWS + CAPTION_ROWS : IMAGE_ROWS)
+// A headline adds two rows at the top the same way.
+export const HEADLINE_ROWS = 2
+export const rowCount = (caption: boolean, headline: boolean) =>
+  IMAGE_ROWS + (caption ? CAPTION_ROWS : 0) + (headline ? HEADLINE_ROWS : 0)
 
 // Values come from the global variables (gap, page padding).
 export type GridSettings = { gap: number; paddingX: number; paddingY: number }
@@ -40,11 +43,12 @@ export function gridLines(s: GridSettings, rows: number) {
 }
 
 // Position and size of a grid block on the reference page, in px.
-export function blockRect(block: GridBlock, s: GridSettings, rows: number) {
+// `rowOffset` shifts the block down (the layout's rows start below a headline).
+export function blockRect(block: GridBlock, s: GridSettings, rows: number, rowOffset = 0) {
   const step = stepSize(s, rows)
   return {
     left: s.paddingX + (block.col - 1) * step.width,
-    top: s.paddingY + (block.row - 1) * step.height,
+    top: s.paddingY + (block.row - 1 + rowOffset) * step.height,
     width: Math.max(0, block.colSpan * step.width - s.gap),
     height: Math.max(0, block.rowSpan * step.height - s.gap),
   }
