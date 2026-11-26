@@ -1,3 +1,5 @@
+import { PAGE_FORMAT_NAMES } from '../layouts/geometry'
+
 // The single list that defines every global variable.
 // The sidebar draws its controls from this list; adding a variable = adding one entry.
 // Defaults and ranges follow docs/VARIABLE_SYSTEM.md. All px values are measured on the 1080 × 1440 px reference page.
@@ -26,7 +28,7 @@ export type VariableDef = Base &
     | { type: 'slider'; default: number; min: number; max: number; step: number; unit?: string }
     | { type: 'number'; default: number; min: number; max: number; step: number; unit?: string }
     | { type: 'toggle'; default: boolean }
-    | { type: 'select'; default: string; options: string[] }
+    | { type: 'select'; default: string; options: string[]; segmented?: boolean } // segmented: buttons instead of a dropdown
     | { type: 'color'; default: string }
   )
 
@@ -73,10 +75,13 @@ export const TEXT_STYLE_RANGES = {
 }
 
 export const variableSchema: AnyVariableDef[] = [
+  // The page format of the whole book (see docs/LAYOUT_SPECIFICATIONS.md, "Page format"). First: it sits right under the sidebar header.
+  // Reset keeps it (see store.ts).
+  { id: 'pageFormat', label: 'Format', group: 'Format', type: 'select', default: 'Portrait', options: PAGE_FORMAT_NAMES, segmented: true },
   // How many pages show their clipart (see docs/LAYOUT_SPECIFICATIONS.md, "Cliparts"). First, so its group is on top of the sidebar.
   { id: 'cliparts', label: 'Cliparts', group: 'Cliparts', type: 'select', default: 'None', options: ['None', 'A few', 'A lot'] },
   // Gap between placeholders; also the gutter of the 12 × 12 grid.
-  { id: 'gap', label: 'Gap', group: 'Layout', type: 'slider', default: 34, min: 0, max: 60, step: 1, unit: 'px' },
+  { id: 'gap', label: 'Gap', group: 'Layout', type: 'slider', default: 24, min: 0, max: 60, step: 1, unit: 'px' },
   // Maximum 210 px: with the maximum gap (60 px) the 12 columns still fit inside the page.
   // Default is linked at 86 px. Equal padding makes the content area taller, so placeholder shapes drift from
   // their target formats (see LAYOUT_SPECIFICATIONS.md).

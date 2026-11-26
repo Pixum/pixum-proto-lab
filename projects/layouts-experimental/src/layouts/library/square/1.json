@@ -1,0 +1,17 @@
+{
+  "id": "1",
+  "placeholderCount": 1,
+  "orientations": [
+    "any"
+  ],
+  "tags": [],
+  "elements": [
+    {
+      "type": "placeholder",
+      "col": 1,
+      "row": 1,
+      "colSpan": 24,
+      "rowSpan": 24
+    }
+  ]
+}

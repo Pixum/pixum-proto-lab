@@ -8,7 +8,17 @@ Reference: Figma file "Page Layouts" (`SVTJgs9ML1EKRGoOC2AXXK`, node `4167:3070`
 1 opening page, 4 double-page spreads, 1 closing page (10 pages total).
 
 ## Page format
-21 × 28 cm (portrait, 3:4).
+Three formats, chosen in the sidebar (**Format**, right under the header; default Portrait):
+
+| Format | Size | Reference page (px) |
+|---|---|---|
+| Portrait | 21 × 28 cm (3:4) | 1080 × 1440 |
+| Landscape | 28 × 21 cm (4:3) | 1440 × 1080 |
+| Square | 21 × 21 cm | 1080 × 1080 |
+
+All three are about 51 px per cm, so the same gap, padding and font size values look alike on every format. The table lives in `pageFormats` (`src/layouts/geometry.ts`). The grid is 24 × 24 on every format; on Landscape and Square the cells are wider, so block shapes differ.
+
+**One library per format:** `src/layouts/library/portrait/`, `landscape/` and `square/`, each with the same 95 file names and ids. A format's folder is drawn for that format's page at the default variables. Portrait is hand-drawn (see below); Landscape and Square are **generated** with `node scripts/generate-layouts.mjs <landscape|square>` (overwrites that folder). Generator rules: straight cuts of the grid, every cell used once, every edge touched, blocks within 5 % of their format; it tries 5 % without spacers, then 8 % without spacers, then 5 % with one spacer, then 8 % with up to two; most even blocks first (an overly uneven layout, biggest block over 10 times the smallest, is only used if nothing else exists); 6 to 9 placeholders never get spacers. Layouts that needed a spacer or more than 5 % show amber or a spacer share in the overview. Review them like the portrait exceptions.
 
 **Reference page size for px values (assumption, to confirm):** 1080 × 1440 px, which is 21 × 28 cm at 3:4. The Figma examples are 1100 × 1440 and were scaled to this. All px variables (gap, padding, radius, font size) are measured on this reference page. The canvas scales the page for display.
 
@@ -17,7 +27,7 @@ Two rows of 5 pages each:
 - Row 1: opening page (1), spread (2–3), spread (4–5)
 - Row 2: spread (6–7), spread (8–9), closing page (10)
 
-Defined in `src/book/structure.ts`.
+Defined in `src/book/structure.ts`. Same on every format.
 
 ## Scope of a layout
 One layout covers **one page**. A spread is two pages, each with its own layout.
@@ -144,6 +154,7 @@ Layouts are assigned to pages **in code or config** for now. No sidebar selectio
 ## Open items
 - Reference page size 1080 × 1440 px (assumed, to confirm).
 - Review the layouts with a high spacer share: `2-lp`, `2-pl`, `2-pp` (27 % to 29 %), `4-pllp` (19 %), `3-plp` and `4-lllp` (17 %), `3-lpl` and `3-ppp` (15 %). At the defaults two photos or several portraits cannot fill a page cleanly.
-- Layout assignment for the 10 pages is a first proposal; the designer reviews and changes it.
+- Layout assignment for the 10 pages is a first proposal; the designer reviews and changes it. The assignment uses layout ids, so it works in every format; `bodyBlocks` and clipart `block` are element indexes, so Landscape and Square have small overrides (`formatOverrides` in `src/book/assignments.ts`: page 1 clipart and page 7 body text, because their layouts have no spacer there).
+- Review the generated Landscape and Square layouts (spacer share, amber blocks, uneven block sizes).
 - **Photos in the book:** the 31 photos in `src/assets/photos` (17 landscape, 14 portrait) fill the book only; the overview stays pink. `src/book/photos.ts` gives each placeholder, in reading order, the next photo of its orientation, in file-name order. The book has 34 placeholders (21 landscape, 12 portrait, 1 free-format that takes a portrait), so 4 landscape photos appear twice, at the end of the book. Portrait photos are listed by number in `photos.ts`; a new portrait photo needs its number added there. Photos are 1024 px wide and soft when zoomed far in.
 - Text: the Headline and Caption areas are implemented with their styles (font, size, weight, color, line height, letter spacing, alignment). Body text is implemented (`bodyBlocks`), used on pages 7 and 10; the overview has no option for it.

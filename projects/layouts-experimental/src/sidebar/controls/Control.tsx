@@ -78,6 +78,19 @@ export default function Control({ def }: { def: AnyVariableDef }) {
         </div>
       )
     case 'select':
+      if (def.segmented)
+        return (
+          <div className={styles.labelled}>
+            <span className={styles.label}>{def.label}</span>
+            <div className={styles.segmented} role="group" aria-label={def.label} style={{ gridTemplateColumns: `repeat(${def.options.length}, 1fr)` }}>
+              {def.options.map((o) => (
+                <button key={o} type="button" className={`${styles.segment} ${styles.segmentText}`} aria-pressed={value === o} onClick={() => setValue(def.id, o)}>
+                  {o}
+                </button>
+              ))}
+            </div>
+          </div>
+        )
       return (
         <div className={styles.row}>
           {label}

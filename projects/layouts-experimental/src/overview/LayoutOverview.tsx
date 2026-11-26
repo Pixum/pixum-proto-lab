@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { layouts, layoutsByCount } from '../layouts/library'
+import { useLibrary } from '../layouts/useLibrary'
 import { TOLERANCE_PERCENT } from '../layouts/checks'
 import LayoutCard from './LayoutCard'
 import styles from './LayoutOverview.module.css'
 
 // Overview of every layout in the library, grouped by number of placeholders. View only.
 export default function LayoutOverview() {
+  const { layouts, layoutsByCount } = useLibrary()
   const [headline, setHeadline] = useState(false)
   const [caption, setCaption] = useState(false)
   const [guides, setGuides] = useState(true)

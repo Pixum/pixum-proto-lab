@@ -1,0 +1,45 @@
+{
+  "id": "4-lppl",
+  "placeholderCount": 4,
+  "orientations": [
+    "landscape",
+    "portrait",
+    "portrait",
+    "landscape"
+  ],
+  "tags": [],
+  "elements": [
+    {
+      "type": "placeholder",
+      "col": 1,
+      "row": 1,
+      "colSpan": 15,
+      "rowSpan": 12,
+      "format": "4:3"
+    },
+    {
+      "type": "placeholder",
+      "col": 16,
+      "row": 1,
+      "colSpan": 9,
+      "rowSpan": 12,
+      "format": "3:4"
+    },
+    {
+      "type": "placeholder",
+      "col": 1,
+      "row": 13,
+      "colSpan": 9,
+      "rowSpan": 12,
+      "format": "3:4"
+    },
+    {
+      "type": "placeholder",
+      "col": 10,
+      "row": 13,
+      "colSpan": 15,
+      "rowSpan": 12,
+      "format": "4:3"
+    }
+  ]
+}

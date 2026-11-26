@@ -240,6 +240,11 @@
   transition: background 120ms ease, color 120ms ease;
 }
 
+.segmentText {
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
 .segment:hover {
   color: var(--color-text);
 }

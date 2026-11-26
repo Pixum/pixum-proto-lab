@@ -1,0 +1,15 @@
+{
+  "id": "2-ll",
+  "placeholderCount": 2,
+  "orientations": [
+    "landscape",
+    "landscape"
+  ],
+  "tags": [],
+  "elements": [
+    { "type": "placeholder", "col": 1, "row": 1, "colSpan": 16, "rowSpan": 12, "format": "16:9" },
+    { "type": "spacer", "col": 17, "row": 1, "colSpan": 8, "rowSpan": 12 },
+    { "type": "spacer", "col": 1, "row": 13, "colSpan": 8, "rowSpan": 12 },
+    { "type": "placeholder", "col": 9, "row": 13, "colSpan": 16, "rowSpan": 12, "format": "16:9" }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "3-lpl",
+  "placeholderCount": 3,
+  "orientations": [
+    "landscape",
+    "portrait",
+    "landscape"
+  ],
+  "tags": [],
+  "elements": [
+    {
+      "type": "placeholder",
+      "col": 1,
+      "row": 1,
+      "colSpan": 15,
+      "rowSpan": 12,
+      "format": "16:9"
+    },
+    {
+      "type": "placeholder",
+      "col": 16,
+      "row": 1,
+      "colSpan": 9,
+      "rowSpan": 24,
+      "format": "1:2"
+    },
+    {
+      "type": "placeholder",
+      "col": 1,
+      "row": 13,
+      "colSpan": 15,
+      "rowSpan": 12,
+      "format": "16:9"
+    }
+  ]
+}

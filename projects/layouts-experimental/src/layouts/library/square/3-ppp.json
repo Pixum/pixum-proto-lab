@@ -1,0 +1,36 @@
+{
+  "id": "3-ppp",
+  "placeholderCount": 3,
+  "orientations": [
+    "portrait",
+    "portrait",
+    "portrait"
+  ],
+  "tags": [],
+  "elements": [
+    {
+      "type": "placeholder",
+      "col": 1,
+      "row": 1,
+      "colSpan": 16,
+      "rowSpan": 24,
+      "format": "2:3"
+    },
+    {
+      "type": "placeholder",
+      "col": 17,
+      "row": 1,
+      "colSpan": 8,
+      "rowSpan": 12,
+      "format": "2:3"
+    },
+    {
+      "type": "placeholder",
+      "col": 17,
+      "row": 13,
+      "colSpan": 8,
+      "rowSpan": 12,
+      "format": "2:3"
+    }
+  ]
+}

@@ -26,7 +26,8 @@ export const useVariables = create<VariableStore>()(
           return { values }
         }),
       setValues: (changes) => set((s) => ({ values: { ...s.values, ...changes } })),
-      reset: () => set({ values: defaultValues() }),
+      // The page format is not a design variable: Reset keeps it.
+      reset: () => set((s) => ({ values: { ...defaultValues(), pageFormat: s.values.pageFormat } })),
     }),
     {
       name: 'layouts-prototype-variables',

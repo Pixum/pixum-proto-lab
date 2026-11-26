@@ -1,0 +1,36 @@
+{
+  "id": "3-lll",
+  "placeholderCount": 3,
+  "orientations": [
+    "landscape",
+    "landscape",
+    "landscape"
+  ],
+  "tags": [],
+  "elements": [
+    {
+      "type": "placeholder",
+      "col": 1,
+      "row": 1,
+      "colSpan": 24,
+      "rowSpan": 16,
+      "format": "3:2"
+    },
+    {
+      "type": "placeholder",
+      "col": 1,
+      "row": 17,
+      "colSpan": 12,
+      "rowSpan": 8,
+      "format": "3:2"
+    },
+    {
+      "type": "placeholder",
+      "col": 13,
+      "row": 17,
+      "colSpan": 12,
+      "rowSpan": 8,
+      "format": "3:2"
+    }
+  ]
+}

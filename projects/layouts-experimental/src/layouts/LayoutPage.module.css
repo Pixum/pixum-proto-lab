@@ -1,8 +1,7 @@
-/* One page, always in the 1080 × 1440 proportion, at whatever width its parent gives it. */
+/* One page at whatever width its parent gives it; the proportion (aspect-ratio) is set inline from the page format. */
 .page {
   position: relative;
   width: 100%;
-  aspect-ratio: 1080 / 1440;
   container-type: inline-size; /* lets the corner radius use cqw (page-relative) units */
 }
 

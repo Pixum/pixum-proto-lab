@@ -6,10 +6,17 @@ Rule: one central set of global variables controls every layout. No page-specifi
 
 All px values are measured on the 1080 × 1440 px reference page (see `LAYOUT_SPECIFICATIONS.md`). The list lives in `src/variables/schema.ts`.
 
+## Format (implemented)
+| Variable | Control | Options | Default |
+|---|---|---|---|
+| Format | segmented buttons (like alignment), first group under the header | Portrait, Landscape, Square | Portrait |
+
+Sets the page shape of the whole book and the layout overview and which layout folder is used (see `LAYOUT_SPECIFICATIONS.md`, "Page format"). It is saved with the other variables, but **Reset keeps it**: Reset restores the design variables only.
+
 ## Layout (implemented)
 | Variable | Control | Range | Default | Notes |
 |---|---|---|---|---|
-| Gap | slider + number | 0–60 px | 34 px | Space between placeholders and the grid gutter. |
+| Gap | slider + number | 0–60 px | 24 px | Space between placeholders and the grid gutter. The layouts in the library were still drawn and checked at 34 px (see `LAYOUT_SPECIFICATIONS.md`), so at 24 px some blocks drift from their target formats. |
 | Page padding horizontal (left and right) | slider + number | 0–210 px | 86 px | See below. |
 | Page padding vertical (top and bottom) | slider + number | 0–210 px | 86 px | |
 | Placeholder corner radius | slider + number | 0–60 px | 0 px | Square corners. |

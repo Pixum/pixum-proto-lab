@@ -1,0 +1,27 @@
+{
+  "id": "2-pp",
+  "placeholderCount": 2,
+  "orientations": [
+    "portrait",
+    "portrait"
+  ],
+  "tags": [],
+  "elements": [
+    {
+      "type": "placeholder",
+      "col": 1,
+      "row": 1,
+      "colSpan": 12,
+      "rowSpan": 24,
+      "format": "1:2"
+    },
+    {
+      "type": "placeholder",
+      "col": 13,
+      "row": 1,
+      "colSpan": 12,
+      "rowSpan": 24,
+      "format": "1:2"
+    }
+  ]
+}

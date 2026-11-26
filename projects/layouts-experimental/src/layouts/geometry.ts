@@ -1,7 +1,15 @@
 import type { GridBlock } from './types'
 
-// Reference page for all px values: 1080 × 1440 px (21 × 28 cm at 3:4).
-export const PAGE = { width: 1080, height: 1440 }
+// The page formats. `px` is the reference page for all px values (gap, padding, font size): about 51 px per cm
+// on every format, so the same variable values look the same on each one. `cm` is the printed size.
+export const pageFormats = {
+  Portrait: { cm: { width: 21, height: 28 }, px: { width: 1080, height: 1440 } },
+  Landscape: { cm: { width: 28, height: 21 }, px: { width: 1440, height: 1080 } },
+  Square: { cm: { width: 21, height: 21 }, px: { width: 1080, height: 1080 } },
+}
+export type PageFormatName = keyof typeof pageFormats
+export const PAGE_FORMAT_NAMES = Object.keys(pageFormats) as PageFormatName[]
+export type PageSize = { width: number; height: number }
 
 // The grid is 24 × 24 for every layout (1 to 9 placeholders): fine enough for balanced blocks with many photos.
 export const GRID_COLUMNS = 24
@@ -14,15 +22,15 @@ export const HEADLINE_ROWS = 2
 export const rowCount = (caption: boolean, headline: boolean) =>
   IMAGE_ROWS + (caption ? CAPTION_ROWS : 0) + (headline ? HEADLINE_ROWS : 0)
 
-// Values come from the global variables (gap, page padding).
-export type GridSettings = { gap: number; paddingX: number; paddingY: number }
+// Values come from the global variables (gap, page padding) and the page format (`page`, px on the reference page).
+export type GridSettings = { gap: number; paddingX: number; paddingY: number; page: PageSize }
 
 // One grid step: a cell plus the gap after it. A block of k cells is k steps minus one gap, so it stays
 // positive even when a single fine cell would be narrower than 0 (large gap and padding).
 function stepSize(s: GridSettings, rows: number) {
   return {
-    width: (PAGE.width - 2 * s.paddingX + s.gap) / GRID_COLUMNS,
-    height: (PAGE.height - 2 * s.paddingY + s.gap) / rows,
+    width: (s.page.width - 2 * s.paddingX + s.gap) / GRID_COLUMNS,
+    height: (s.page.height - 2 * s.paddingY + s.gap) / rows,
   }
 }
 

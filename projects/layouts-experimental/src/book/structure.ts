@@ -1,8 +1,6 @@
 // The book's structure. Layout rules for the pages are defined separately (docs/LAYOUT_SPECIFICATIONS.md).
 
-// Page format: 21 × 28 cm.
-export const PAGE_CM = { width: 21, height: 28 }
-
+// Page sizes per format: see pageFormats in src/layouts/geometry.ts.
 // Pages are drawn at 1 cm = 10 px; the canvas scales the whole book to fit the view.
 export const PX_PER_CM = 10
 

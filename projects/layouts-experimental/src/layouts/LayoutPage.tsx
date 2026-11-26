@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { blockRect, CAPTION_ROWS, GRID_COLUMNS, gridLines, HEADLINE_ROWS, PAGE, rowCount } from './geometry'
+import { blockRect, CAPTION_ROWS, GRID_COLUMNS, gridLines, HEADLINE_ROWS, rowCount, type PageSize } from './geometry'
 import { useVariables } from '../variables/store'
 import { useLayoutSettings } from './useLayoutSettings'
 import { useTextStyle } from './useTextStyle'
@@ -22,32 +22,32 @@ const CLIPART_TILT = 10
 // Where a clipart goes, in px on the reference page: the center of a spacer, or the outer corner of a placeholder
 // (the corner farthest from the page center, so it covers as little of the neighbouring photos as possible).
 // `tilt` is -1 (leans left) or 1 (leans right): away from the center of the block, or of the page for a spacer.
-function clipartPoint(rect: { left: number; top: number; width: number; height: number }, isSpacer: boolean) {
+function clipartPoint(rect: { left: number; top: number; width: number; height: number }, isSpacer: boolean, page: PageSize) {
   const cx = rect.left + rect.width / 2
-  if (isSpacer) return { x: cx, y: rect.top + rect.height / 2, tilt: cx < PAGE.width / 2 ? -1 : 1 }
+  if (isSpacer) return { x: cx, y: rect.top + rect.height / 2, tilt: cx < page.width / 2 ? -1 : 1 }
   const corners = [
     [rect.left, rect.top],
     [rect.left + rect.width, rect.top],
     [rect.left, rect.top + rect.height],
     [rect.left + rect.width, rect.top + rect.height],
   ]
-  const far = (c: number[]) => Math.hypot(c[0] - PAGE.width / 2, c[1] - PAGE.height / 2)
+  const far = (c: number[]) => Math.hypot(c[0] - page.width / 2, c[1] - page.height / 2)
   const [x, y] = corners.reduce((best, c) => (far(c) > far(best) ? c : best))
   return { x, y, tilt: x < cx ? -1 : 1 }
 }
 
 // A clipart kept inside its page: the whole tilted image must fit, so near an edge it moves inward by the
 // smallest amount instead of leaving the page. Needs the image's proportions, known once it has loaded.
-function Clipart({ src, x, y, tilt }: { src: string; x: number; y: number; tilt: number }) {
+function Clipart({ src, x, y, tilt, page }: { src: string; x: number; y: number; tilt: number; page: PageSize }) {
   const [ratio, setRatio] = useState<number>() // natural height / width
-  const w = CLIPART_WIDTH * PAGE.width
+  const w = CLIPART_WIDTH * page.width
   const h = w * (ratio ?? 1)
   const a = (CLIPART_TILT * Math.PI) / 180
   // Size of the box around the tilted image.
   const boxW = w * Math.cos(a) + h * Math.sin(a)
   const boxH = w * Math.sin(a) + h * Math.cos(a)
-  const cx = Math.min(Math.max(x, boxW / 2), PAGE.width - boxW / 2)
-  const cy = Math.min(Math.max(y, boxH / 2), PAGE.height - boxH / 2)
+  const cx = Math.min(Math.max(x, boxW / 2), page.width - boxW / 2)
+  const cy = Math.min(Math.max(y, boxH / 2), page.height - boxH / 2)
   return (
     <img
       className={styles.clipart}
@@ -55,8 +55,8 @@ function Clipart({ src, x, y, tilt }: { src: string; x: number; y: number; tilt:
       alt=""
       onLoad={(e) => setRatio(e.currentTarget.naturalHeight / e.currentTarget.naturalWidth || 1)}
       style={{
-        left: `${(cx / PAGE.width) * 100}%`,
-        top: `${(cy / PAGE.height) * 100}%`,
+        left: `${(cx / page.width) * 100}%`,
+        top: `${(cy / page.height) * 100}%`,
         width: `${CLIPART_WIDTH * 100}%`,
         transform: `translate(-50%, -50%) rotate(${tilt * CLIPART_TILT}deg)`,
         visibility: ratio ? 'visible' : 'hidden', // not before the size is known, so it never shows outside the page
@@ -68,12 +68,12 @@ function Clipart({ src, x, y, tilt }: { src: string; x: number; y: number; tilt:
 const V_ALIGN = { top: 'flex-start', middle: 'center', bottom: 'flex-end' } as const
 
 // Position and size as percentages of the page, so the page scales with its width.
-function percentStyle(rect: { left: number; top: number; width: number; height: number }) {
+function percentStyle(rect: { left: number; top: number; width: number; height: number }, page: PageSize) {
   return {
-    left: `${(rect.left / PAGE.width) * 100}%`,
-    top: `${(rect.top / PAGE.height) * 100}%`,
-    width: `${(rect.width / PAGE.width) * 100}%`,
-    height: `${(rect.height / PAGE.height) * 100}%`,
+    left: `${(rect.left / page.width) * 100}%`,
+    top: `${(rect.top / page.height) * 100}%`,
+    width: `${(rect.width / page.width) * 100}%`,
+    height: `${(rect.height / page.height) * 100}%`,
   }
 }
 
@@ -92,6 +92,7 @@ type Props = {
 // (gap, page padding, corner radius, background color). View only.
 export default function LayoutPage({ layout, headline = false, caption = false, bodyBlocks, clipart, guides = false, labels = false, photos }: Props) {
   const settings = useLayoutSettings()
+  const page = settings.page
   const headlineStyle = useTextStyle('headline')
   const captionStyle = useTextStyle('caption')
   const bodyStyle = useTextStyle('body')
@@ -102,7 +103,7 @@ export default function LayoutPage({ layout, headline = false, caption = false, 
   const rowOffset = headline ? HEADLINE_ROWS : 0
   const lines = gridLines(settings, rows)
   // The radius is in px on the 1080 px reference page; 1cqw is 1 % of the page's own width.
-  const radius = `${(settings.radius / PAGE.width) * 100}cqw`
+  const radius = `${(settings.radius / page.width) * 100}cqw`
   // The photos follow the reading order of the placeholders: top to bottom, then left to right.
   const photoOf = new Map(
     layout.elements
@@ -112,14 +113,14 @@ export default function LayoutPage({ layout, headline = false, caption = false, 
   )
 
   return (
-    <div className={styles.page} style={{ background: settings.background }}>
+    <div className={styles.page} style={{ background: settings.background, aspectRatio: `${page.width} / ${page.height}` }}>
       {guides && (
         // One element with one path for all guide lines (about 94 divs before): much cheaper to update while sliding.
-        <svg className={styles.guideLines} viewBox={`0 0 ${PAGE.width} ${PAGE.height}`} preserveAspectRatio="none" aria-hidden="true">
+        <svg className={styles.guideLines} viewBox={`0 0 ${page.width} ${page.height}`} preserveAspectRatio="none" aria-hidden="true">
           <path
             d={
-              lines.x.map((x) => `M${x} ${settings.paddingY}V${PAGE.height - settings.paddingY}`).join('') +
-              lines.y.map((y) => `M${settings.paddingX} ${y}H${PAGE.width - settings.paddingX}`).join('')
+              lines.x.map((x) => `M${x} ${settings.paddingY}V${page.height - settings.paddingY}`).join('') +
+              lines.y.map((y) => `M${settings.paddingX} ${y}H${page.width - settings.paddingX}`).join('')
             }
           />
         </svg>
@@ -127,7 +128,7 @@ export default function LayoutPage({ layout, headline = false, caption = false, 
 
       {layout.elements.map((el, i) => {
         const rect = blockRect(el, settings, rows, rowOffset)
-        const style = percentStyle(rect)
+        const style = percentStyle(rect, page)
         if (bodyBlocks?.includes(i)) {
           // Clipped and truncated: only the lines that fit the block, the last one ends with an ellipsis.
           const fitting = Math.max(1, Math.floor((rect.height - 2 * BODY_PADDING) / (bodySize * bodyLineHeight)))
@@ -135,7 +136,7 @@ export default function LayoutPage({ layout, headline = false, caption = false, 
             <div
               key={i}
               className={`${styles.body} ${guides ? styles.textGuide : ''}`}
-              style={{ ...style, alignItems: V_ALIGN[bodyVAlign], padding: `${(BODY_PADDING / PAGE.width) * 100}cqw` }}
+              style={{ ...style, alignItems: V_ALIGN[bodyVAlign], padding: `${(BODY_PADDING / page.width) * 100}cqw` }}
             >
               <div className={styles.bodyText} style={{ ...bodyStyle, WebkitLineClamp: fitting }}>
                 {BODY_TEXT}
@@ -161,7 +162,7 @@ export default function LayoutPage({ layout, headline = false, caption = false, 
       {headline && (
         <div
           className={`${styles.headline} ${guides ? styles.textGuide : ''}`}
-          style={percentStyle(blockRect({ col: 1, row: 1, colSpan: GRID_COLUMNS, rowSpan: HEADLINE_ROWS }, settings, rows))}
+          style={percentStyle(blockRect({ col: 1, row: 1, colSpan: GRID_COLUMNS, rowSpan: HEADLINE_ROWS }, settings, rows), page)}
         >
           <span className={styles.headlineText} style={headlineStyle}>
             Time for a trip
@@ -172,7 +173,7 @@ export default function LayoutPage({ layout, headline = false, caption = false, 
       {caption && (
         <div
           className={`${styles.caption} ${guides ? styles.textGuide : ''}`}
-          style={percentStyle(blockRect({ col: 1, row: rows - CAPTION_ROWS + 1, colSpan: GRID_COLUMNS, rowSpan: CAPTION_ROWS }, settings, rows))}
+          style={percentStyle(blockRect({ col: 1, row: rows - CAPTION_ROWS + 1, colSpan: GRID_COLUMNS, rowSpan: CAPTION_ROWS }, settings, rows), page)}
         >
           <span className={styles.captionText} style={captionStyle}>
             Our family trip in Bad Münstereifel
@@ -182,9 +183,9 @@ export default function LayoutPage({ layout, headline = false, caption = false, 
 
       {clipart && layout.elements[clipart.block] && (() => {
         const el = layout.elements[clipart.block]
-        const p = clipartPoint(blockRect(el, settings, rows, rowOffset), el.type === 'spacer')
+        const p = clipartPoint(blockRect(el, settings, rows, rowOffset), el.type === 'spacer', page)
         return (
-          <Clipart src={clipart.src} x={p.x} y={p.y} tilt={p.tilt} />
+          <Clipart src={clipart.src} x={p.x} y={p.y} tilt={p.tilt} page={page} />
         )
       })()}
     </div>

@@ -1,4 +1,4 @@
-import { layoutsById } from '../layouts/library'
+import { libraries } from '../layouts/library'
 import { pageAssignments } from './assignments'
 
 // Photos for the book placeholders (src/assets/photos). Only the book uses them; the Layouts overview stays pink.
@@ -24,7 +24,7 @@ function assignPhotos(): Record<number, string[]> {
   const next = { portrait: 0, landscape: 0 }
   const result: Record<number, string[]> = {}
   for (const [page, { layout: id }] of Object.entries(pageAssignments).sort(([a], [b]) => Number(a) - Number(b))) {
-    const layout = layoutsById[id]
+    const layout = libraries.Portrait.layoutsById[id] // orientations are the same in every format
     if (!layout) continue
     result[Number(page)] = layout.orientations.map((o) => {
       const kind = o === 'landscape' ? 'landscape' : 'portrait'
